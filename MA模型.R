@@ -1,0 +1,10 @@
+library(forecast)
+opar<-par(no.readonly = TRUE)
+par(mfrow=c(2,2))
+ylim<-c(min(Daily_Simple),max(Daily_Simple))
+plot(Daily_Simple,main="Raw daily price")
+plot(ma(Daily_Simple,3),main="Simple Moving Averages(k=3)",ylim=ylim)
+plot(ma(Daily_Simple,7),main="Simple Moving Averages(k=7)",ylim=ylim)
+plot(ma(Daily_Simple,15),main="Simple Moving Averages(k=15)",ylim=ylim)
+par(opar)
+
