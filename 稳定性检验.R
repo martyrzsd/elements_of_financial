@@ -4,24 +4,24 @@ library(TTR)
 library(ggplot2)
 library(scales)
 library(tseries)
-#ÎÈ¶¨ĞÔ¼ìÑé
-a=data_Daily$Adj.Close#ÊÕÅÌ¼Û
+#ç¨³å®šæ€§æ£€éªŒ
+a=data_Daily$Adj.Close#æ”¶ç›˜ä»·
 a=diff(a)/a[-length(a)]
 a[a=="NaN"]=0
 a[a=="Inf"]=0
-createdata<-data[-1,]#ÎÒÕâ¸ödata²»ÖªµÀÎªÉ¶¶àÁËÒ»ĞĞ
+createdata<-data[-1,]#æˆ‘è¿™ä¸ªdataä¸çŸ¥é“ä¸ºå•¥å¤šäº†ä¸€è¡Œ
 createdata[,1]=data_Daily$Date
 createdata[,2]=c(0,a)
 createdata=createdata[nrow(createdata):1,]
 plot(createdata[,1],createdata[,2])
-##Ìí¼ÓÖ¸±ê
+##æ·»åŠ æŒ‡æ ‡
 lines(createdata[,1],DEMA(createdata[,2]),col="green")
 lines(createdata[,1],SMA(createdata[,2]),col="red")
 legend("bottomright",col=c("green","red"),legend=c("DEMA","SMA"),lty=1,pch=1)
-#¸Ğ¾õ²»Æ½ÎÈ ¾Í²î·ÖÒ»ÏÂ ¶¨½×
+#æ„Ÿè§‰ä¸å¹³ç¨³ å°±å·®åˆ†ä¸€ä¸‹ å®šé˜¶
 library(tseries)
 library(forecast)
-ndiffs(Daily_Price)#Ëã³öÀ´Îª2
+ndiffs(Daily_Price)#ç®—å‡ºæ¥ä¸º2
 dPrice<-diff(Daily_Price,differences = 2)
 plot(dPrice)
 adf.test(dPrice)
