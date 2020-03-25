@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.5.8)  25 MAR 2020 12:52
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.5.8)  25 MAR 2020 13:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1154,21 +1154,21 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.37756pt on input line 121.
+(Font)              scaled to size 7.37756pt on input line 123.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.26968pt on input line 121.
+(Font)              scaled to size 5.26968pt on input line 123.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.54048pt on input line 121.
+(Font)              scaled to size 10.54048pt on input line 123.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.37834pt on input line 121.
+(Font)              scaled to size 7.37834pt on input line 123.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.27023pt on input line 121.
+(Font)              scaled to size 5.27023pt on input line 123.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.53824pt on input line 121.
+(Font)              scaled to size 10.53824pt on input line 123.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.37677pt on input line 121.
+(Font)              scaled to size 7.37677pt on input line 123.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.26912pt on input line 121.
+(Font)              scaled to size 5.26912pt on input line 123.
 
 Package fontspec Warning: Font "FandolFang-Regular" does not contain requested
 (fontspec)                Script "CJK".
@@ -1194,32 +1194,32 @@ pping=tex-text;"
 (fontspec)             - 'small caps'  (m/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.53937> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 129.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 131.
 LaTeX Font Info:    Font shape `TU/FandolFang-Regular(0)/m/n' will be
-(Font)              scaled to size 9.91812pt on input line 133.
-File: Hw1_files/figure-latex/pressure-1.pdf Graphic file (type pdf)
-<use Hw1_files/figure-latex/pressure-1.pdf>
+(Font)              scaled to size 9.91812pt on input line 135.
 [1
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 153.
+File: Hw1_files/figure-latex/pressure-1.pdf Graphic file (type pdf)
+<use Hw1_files/figure-latex/pressure-1.pdf>
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 155.
 LaTeX Font Info:    Font shape `TU/FandolSong-Regular(0)/m/sl' in size <10.5393
 7> not available
 (Font)              Font shape `TU/FandolSong-Regular(0)/m/it' tried instead on
- input line 153.
+ input line 155.
 [2]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 153.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 155.
 (./Hw1.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 153.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 153.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 155.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 155.
 Package rerunfilecheck Info: File `Hw1.out' has not changed.
 (rerunfilecheck)             Checksum: 6DCB2AA3249D49AD542A45882F78728A.
  ) 
 Here is how much of TeX's memory you used:
- 30299 strings out of 492916
- 589367 string characters out of 6133346
+ 30302 strings out of 492916
+ 589490 string characters out of 6133346
  782558 words of memory out of 5000000
- 34029 multiletter control sequences out of 15000+600000
+ 34032 multiletter control sequences out of 15000+600000
  538918 words of font info for 88 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  59i,6n,121p,811b,446s stack positions out of 5000i,500n,10000p,200000b,80000s
