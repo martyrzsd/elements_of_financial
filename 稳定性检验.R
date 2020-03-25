@@ -21,7 +21,7 @@ AAPL_Daily_Close_diff[AAPL_Daily_Close_diff=="Inf"] <- 0
 AAPL_Daily_Close_diff[AAPL_Daily_Close_diff>60]<-0
 
 #createdata <- data[-1,]#我这个data不知道为啥多了一行
-createdata <- data.frame(Date=as.Date(AAPL_Daily_Data$Date), DIFF=c(0,AAPL_Daily_Close_diff) ,DEMA=DEMA(createdata[,2]),SMA=SMA(createdata[,2]))
+createdata <- data.frame(Date=as.Date(AAPL_Daily_Data$Date), DIFF=c(0,AAPL_Daily_Close_diff) ,DEMA=DEMA(c(0,AAPL_Daily_Close_diff)),SMA=SMA(c(0,AAPL_Daily_Close_diff)))
 plot1 <- ggplot(data = createdata,aes(x=createdata$Date))
 plot1 <- plot1+scale_x_date(date_breaks = "1 year")+theme(axis.text.x = element_text(angle = 90))
 plot1 <- plot1+geom_point(aes(y=createdata[,2]),size=0.3 )
