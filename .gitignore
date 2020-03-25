@@ -37,3 +37,4 @@ vignettes/*.pdf
 Hw1.log
 .DS_Store
 Hw1.pdf
+*.tex
