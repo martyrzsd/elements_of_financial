@@ -13,6 +13,7 @@ library(RColorBrewer)
 #Import Data
 AAPL_Daily_Data <- read.csv("./Data/AAPL.csv")
 
+AAPL_Daily_Data <- AAPL_Daily_Data[]
 
 AAPL_Daily_Close <- as.vector(AAPL_Daily_Data$Adj.Close,mode = "numeric")#收盘价
 AAPL_Daily_Close_diff <- diff(AAPL_Daily_Close)/AAPL_Daily_Close[-length(AAPL_Daily_Close)]
