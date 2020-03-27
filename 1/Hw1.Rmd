@@ -32,6 +32,7 @@ library(tseries)
 library(scales)
 library(plyr)
 library(TTR)
+set.seed(2020)
 ```
 
 # 数据特征
@@ -62,6 +63,8 @@ pacf(cprice)
 
 ### ARIMA1
 
+#### 模型
+
 ```{r}
 m2 <- arima(cprice, order = c(3, 0, 0), 
             seasonal = list(order = c(2, 0, 0), period = 5), 
@@ -69,13 +72,39 @@ m2 <- arima(cprice, order = c(3, 0, 0),
 m2
 ```
 
+#### 图像
 
+```{r}
+plot(m2)
+checkresiduals(m2)
+```
+
+#### 预测
+
+```{r}
+plot(forecast(m2,h=10),xlim=c(3000,3090))
+```
 
 ### ARIMA2
+
+#### 模型
 
 ```{r}
 m3 <- arima(cprice, seasonal = list(order = c(2, 0, 0), period = 5), include.mean = F)
 summary(m3)
+```
+
+#### 图像
+
+```{r}
+plot(m3)
+checkresiduals(m3)
+```
+
+#### 预测
+
+```{r}
+plot(forecast(m3,h=10),xlim=c(3000,3090))
 ```
 
 ## ARMA+GARCH模型
@@ -107,9 +136,7 @@ plot(m4,which=13)
 
 #### 预测
 
-```{r}
-#predict(m6,n.head=30,plot=TRUE)
-```
+BUG
 
 ### 第二个模型
 
@@ -129,6 +156,7 @@ plot(m5,which=13)
 
 #### 预测
 
+BUG
 
 ### 第三个模型
 
@@ -164,6 +192,10 @@ fit_ets
 ```
 
 #### 图像
+
+```{r}
+plot(fit_ets)
+```
 
 #### 预测 
 
