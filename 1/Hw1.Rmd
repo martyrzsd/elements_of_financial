@@ -45,6 +45,7 @@ daily_2008 <- read.csv("../Data/SP500/08年每日.csv")
 SPY <- ts(daily_2008$收盘, frequency = 251, start = c(2008, 1))
 Diffrence_of_SPY <- ts(diff(SPY), 
                        frequency = 251, start = c(2008, 1))
+par(mfrow=c(1,1))
 plot(SPY)
 plot(Diffrence_of_SPY)
 ```
@@ -114,7 +115,6 @@ plot(forecast(m3,h=10),xlim=c(3000,3090))
 
 ```{r}
 adjcp <- cprice[11:3081] + 0.0817 * cprice[6:3076] - 0.0667 * cprice[1:3071]
-par(mfrow=c(2,1))
 acf(adjcp)
 pacf(adjcp)
 ```
