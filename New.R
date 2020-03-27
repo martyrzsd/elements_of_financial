@@ -1,15 +1,16 @@
 library(fGarch)
-data <- read.csv("08年每日.csv")
-SPY <- ts(data$收盘, frequency = 251, start = c(2008, 1))
+daily_2008 <- read.csv("./Data/SP500/08年每日.csv")
+SPY <- ts(daily_2008$收盘, frequency = 251, start = c(2008, 1))
 dp <- ts(diff(SPY), frequency = 251, start = c(2008, 1))
+par(mfrow=c(2,1))
 plot(SPY)
 plot(dp)
-cprice <- diff(data$收盘)
+cprice <- diff(daily_2008$收盘)
 
 
 m2 <- arima(cprice, order = c(3, 0, 0), seasonal = list(order = c(2, 0, 0), period = 5), include.mean = F)
 m2
-length(cprice)
+#length(cprice)
 acf(cprice)
 pacf(cprice)
 
@@ -43,9 +44,9 @@ plot(m6)
 
 
 ############另外的代码
-data <- read.csv("08年每月.csv")
+daily_2008 <- read.csv("08年每月.csv")
 library(forecast)
-Monthly_Price<-data$收盘
+Monthly_Price<-daily_2008$收盘
 library(tseries)
 Monthly_Pricets<-ts(Monthly_Price,frequency = 12,start=c(2008,1))
 fit_ets<-ets(Monthly_Pricets)

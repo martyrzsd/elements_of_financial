@@ -4,9 +4,16 @@ author:
   - 王程航
   - 王泽浩
   - 张申铎
+  - 闫雨菲
 output: 
   pdf_document: 
     latex_engine: xelatex
+    include:
+      in_header: header.tex
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+classoption: "hyperref,"
 documentclass: ctexart
 ---
 
@@ -15,29 +22,106 @@ knitr::opts_chunk$set(echo = TRUE)
 library(rticles)
 ```
 
+# 需要使用到的包
 
-# 咱们要干啥呢?
-
-杀了WZH
-
-ahfiadshf
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r,message=FALSE}
+library(fGarch)
+library(ggplot2)
+library(forecast)
+library(tseries)
+library(scales)
+library(plyr)
+library(TTR)
 ```
 
-## Including Plots
+# 平稳性分析
 
-You can also embed plots, for example:
+# 模型分析
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+daily_2008 <- read.csv("../Data/SP500/08年每日.csv")
+SPY <- ts(daily_2008$收盘, frequency = 251, start = c(2008, 1))
+Diffrence_of_SPY <- ts(diff(SPY), 
+                       frequency = 251, start = c(2008, 1))
+par(mfrow=c(2,1))
+plot(SPY)
+plot(Diffrence_of_SPY)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## ARIMA模型
+
+```{r}
+cprice <- diff(daily_2008$收盘)
+m2 <- arima(cprice, order = c(3, 0, 0), 
+            seasonal = list(order = c(2, 0, 0), period = 5), 
+            include.mean = F)
+m2
+```
+
+
+
+```{r}
+par(mfrow=c(2,1))
+acf(cprice)
+pacf(cprice)
+```
+
+```{r}
+m3 <- arima(cprice, seasonal = list(order = c(2, 0, 0), period = 5), include.mean = F)
+summary(m3)
+```
+
+## ARMA+GARCH模型
+
+```{r}
+adjcp <- cprice[11:3081] + 0.0817 * cprice[6:3076] - 0.0667 * cprice[1:3071]
+par(mfrow=c(2,1))
+acf(adjcp)
+pacf(adjcp)
+```
+
+```{r}
+m4 <- garchFit(~arma(3, 0) + garch(1, 1), data = adjcp, trace = F, include.mean = F)
+summary(m4)
+#plot(m4)
+#selectMethod(plot(m4),1)
+```
+
+```{r}
+m5 <- garchFit(~arma(3, 0) + garch(1, 1), data = adjcp, trace = F, include.mean = F, cond.dist = "std")
+summary(m5)
+#plot(m5)
+```
+
+```{r}
+m6 <- garchFit(~arma(1, 0) + garch(1, 1), data = adjcp, trace = F, include.mean = F, cond.dist = "sstd")
+summary(m6)
+#plot(m6)
+```
+
+
+
+
+# 预测
+
+
+```{r}
+monthly_2008 <- read.csv("../Data/SP500/08年每月.csv")
+Monthly_Price<-monthly_2008$收盘
+Monthly_Pricets<-ts(Monthly_Price,frequency = 12,start=c(2008,1))
+fit_ets<-ets(Monthly_Pricets)
+fit_ets
+```
+
+
+```{r}
+plot(forecast(fit_ets),xlab="Time",flty=2)
+```
+
+
+```{r}
+accuracy(fit_ets)
+```
+
+
