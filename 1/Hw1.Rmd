@@ -34,9 +34,7 @@ library(plyr)
 library(TTR)
 ```
 
-# 平稳性分析
-
-# 模型分析
+# 数据特征
 
 ```{r}
 daily_2008 <- read.csv("../Data/SP500/08年每日.csv")
@@ -48,11 +46,23 @@ plot(SPY)
 plot(Diffrence_of_SPY)
 ```
 
+# 建模分析
+
 
 ## ARIMA模型
 
+### 定阶
+
 ```{r}
 cprice <- diff(daily_2008$收盘)
+par(mfrow=c(2,1))
+acf(cprice)
+pacf(cprice)
+```
+
+### ARIMA1
+
+```{r}
 m2 <- arima(cprice, order = c(3, 0, 0), 
             seasonal = list(order = c(2, 0, 0), period = 5), 
             include.mean = F)
@@ -61,11 +71,7 @@ m2
 
 
 
-```{r}
-par(mfrow=c(2,1))
-acf(cprice)
-pacf(cprice)
-```
+### ARIMA2
 
 ```{r}
 m3 <- arima(cprice, seasonal = list(order = c(2, 0, 0), period = 5), include.mean = F)
@@ -73,6 +79,8 @@ summary(m3)
 ```
 
 ## ARMA+GARCH模型
+
+### 定阶
 
 ```{r}
 adjcp <- cprice[11:3081] + 0.0817 * cprice[6:3076] - 0.0667 * cprice[1:3071]
@@ -83,42 +91,68 @@ pacf(adjcp)
 
 ### 第一个模型
 
+#### 模型
+
 ```{r}
 m4 <- garchFit(~arma(3, 0) + garch(1, 1), data = adjcp, trace = F, include.mean = F)
 summary(m4)
+```
+
+#### 图像
+
+```{r}
 plot(m4,which=1)
 plot(m4,which=13)
 ```
 
+#### 预测
+
+```{r}
+#predict(m6,n.head=30,plot=TRUE)
+```
+
 ### 第二个模型
+
+#### 模型
 
 ```{r}
 m5 <- garchFit(~arma(3, 0) + garch(1, 1), data = adjcp, trace = F, include.mean = F, cond.dist = "std")
 summary(m5)
 ```
 
+#### 图像
+
 ```{r}
 plot(m5,which=1)
 plot(m5,which=13)
 ```
 
+#### 预测
+
 
 ### 第三个模型
+
+#### 模型
 
 ```{r}
 m6 <- garchFit(~arma(1, 0) + garch(1, 1), data = adjcp, trace = F, include.mean = F, cond.dist = "sstd")
 summary(m6)
 ```
 
+#### 图像
+
 ```{r}
 plot(m6,which=1)
 plot(m6,which=13)
 ```
 
+#### 预测
 
+```{r}
+predict(m6,n.ahead=30,plot=TRUE)
+```
 
-
-# 预测
+### 指数模型
 
 
 ```{r}
@@ -129,6 +163,9 @@ fit_ets<-ets(Monthly_Pricets)
 fit_ets
 ```
 
+#### 图像
+
+#### 预测 
 
 ```{r}
 plot(forecast(fit_ets),xlab="Time",flty=2)

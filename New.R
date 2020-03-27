@@ -26,17 +26,17 @@ pacf(adjcp)
 m4 <- garchFit(~arma(3, 0) + garch(1, 1), data = adjcp, trace = F, include.mean = F)
 summary(m4)
 plot(m4)
-
+predict(m4,n.head=10,plot=TRUE)
 
 m5 <- garchFit(~arma(3, 0) + garch(1, 1), data = adjcp, trace = F, include.mean = F, cond.dist = "std")
 summary(m5)
 plot(m5)
-
+predict(m5)
 
 m6 <- garchFit(~arma(1, 0) + garch(1, 1), data = adjcp, trace = F, include.mean = F, cond.dist = "sstd")
 summary(m6)
 plot(m6)
-
+predict(m6,n.head=10,plot=TRUE)
 
 
 
@@ -44,9 +44,9 @@ plot(m6)
 
 
 ############另外的代码
-daily_2008 <- read.csv("08年每月.csv")
+monthly_2008 <- read.csv("./Data/SP500/08年每月.csv")
 library(forecast)
-Monthly_Price<-daily_2008$收盘
+Monthly_Price<-monthly_2008$收盘
 library(tseries)
 Monthly_Pricets<-ts(Monthly_Price,frequency = 12,start=c(2008,1))
 fit_ets<-ets(Monthly_Pricets)
