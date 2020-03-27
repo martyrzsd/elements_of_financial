@@ -1,20 +1,23 @@
 ---
 title: "金融统计基础第一次作业"
-author: 
-  - 王程航
-  - 王泽浩
-  - 张申铎
-  - 闫雨菲
-output: 
-  pdf_document: 
-    latex_engine: xelatex
+author:
+- 王程航
+- 王泽浩
+- 张申铎
+- 闫雨菲
+documentclass: ctexart
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+  pdf_document:
+    fig_caption: yes
     include:
       in_header: header.tex
-    fig_caption: yes
+    latex_engine: xelatex
     number_sections: yes
     toc: yes
-classoption: "hyperref,"
-documentclass: ctexart
+classoption: hyperref,
 ---
 
 ```{r setup, include=FALSE}
@@ -42,7 +45,6 @@ daily_2008 <- read.csv("../Data/SP500/08年每日.csv")
 SPY <- ts(daily_2008$收盘, frequency = 251, start = c(2008, 1))
 Diffrence_of_SPY <- ts(diff(SPY), 
                        frequency = 251, start = c(2008, 1))
-par(mfrow=c(2,1))
 plot(SPY)
 plot(Diffrence_of_SPY)
 ```
@@ -56,7 +58,6 @@ plot(Diffrence_of_SPY)
 
 ```{r}
 cprice <- diff(daily_2008$收盘)
-par(mfrow=c(2,1))
 acf(cprice)
 pacf(cprice)
 ```
