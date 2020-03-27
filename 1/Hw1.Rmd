@@ -81,23 +81,38 @@ acf(adjcp)
 pacf(adjcp)
 ```
 
+### 第一个模型
+
 ```{r}
 m4 <- garchFit(~arma(3, 0) + garch(1, 1), data = adjcp, trace = F, include.mean = F)
 summary(m4)
-#plot(m4)
-#selectMethod(plot(m4),1)
+plot(m4,which=1)
+plot(m4,which=13)
 ```
+
+### 第二个模型
 
 ```{r}
 m5 <- garchFit(~arma(3, 0) + garch(1, 1), data = adjcp, trace = F, include.mean = F, cond.dist = "std")
 summary(m5)
-#plot(m5)
 ```
+
+```{r}
+plot(m5,which=1)
+plot(m5,which=13)
+```
+
+
+### 第三个模型
 
 ```{r}
 m6 <- garchFit(~arma(1, 0) + garch(1, 1), data = adjcp, trace = F, include.mean = F, cond.dist = "sstd")
 summary(m6)
-#plot(m6)
+```
+
+```{r}
+plot(m6,which=1)
+plot(m6,which=13)
 ```
 
 
