@@ -36,8 +36,8 @@ predict(m5)
 m6 <- garchFit(~arma(1, 0) + garch(1, 1), data = adjcp, trace = F, include.mean = F, cond.dist = "sstd")
 summary(m6)
 plot(m6)
+set.seed(2020)
 predict(m6,n.head=10,plot=TRUE)
-
 
 
 
