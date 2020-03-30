@@ -35,6 +35,7 @@ library(tseries)
 library(scales)
 library(plyr)
 library(TTR)
+library(purrr)
 set.seed(2020)
 ```
 
@@ -85,6 +86,12 @@ checkresiduals(m2)
 
 ```{r}
 plot(forecast(m2,h=10),xlim=c(3000,3090))
+## 原数据预测
+forecast_Original_Arma1<-accumulate(forecast(m2,h=10)$mean     ,sum)+daily_2008$收盘[length(daily_2008$收盘)]
+upper80_Original_Arma1 <-accumulate(forecast(m2,h=10)$upper[,1],sum)+daily_2008$收盘[length(daily_2008$收盘)]
+upper95_Original_Arma1 <-accumulate(forecast(m2,h=10)$upper[,2],sum)+daily_2008$收盘[length(daily_2008$收盘)]
+lower80_Original_Arma1 <-accumulate(forecast(m2,h=10)$lower[,1],sum)+daily_2008$收盘[length(daily_2008$收盘)]
+lower95_Original_Arma1 <-accumulate(forecast(m2,h=10)$lower[,2],sum)+daily_2008$收盘[length(daily_2008$收盘)]
 ```
 
 ### ARIMA2
@@ -107,6 +114,13 @@ checkresiduals(m3)
 
 ```{r}
 plot(forecast(m3,h=10),xlim=c(3000,3090))
+
+##原数据预测
+forecast_Original_Arma2<-accumulate(forecast(m3,h=10)$mean     ,sum)+daily_2008$收盘[length(daily_2008$收盘)]
+upper80_Original_Arma2 <-accumulate(forecast(m3,h=10)$upper[,1],sum)+daily_2008$收盘[length(daily_2008$收盘)]
+upper95_Original_Arma2 <-accumulate(forecast(m3,h=10)$upper[,2],sum)+daily_2008$收盘[length(daily_2008$收盘)]
+lower80_Original_Arma2 <-accumulate(forecast(m3,h=10)$lower[,1],sum)+daily_2008$收盘[length(daily_2008$收盘)]
+lower95_Original_Arma2 <-accumulate(forecast(m3,h=10)$lower[,2],sum)+daily_2008$收盘[length(daily_2008$收盘)]
 ```
 
 ## ARMA+GARCH模型
@@ -253,7 +267,7 @@ plot(fit_ets)
 #### 预测 
 
 ```{r}
-plot(forecast(fit_ets),xlab="Time",flty=2)
+plot(forecast(fit_ets,h=5),xlab="Time",flty=2,xlim=c(2015,2020.8))
 ```
 
 

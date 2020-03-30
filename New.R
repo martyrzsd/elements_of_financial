@@ -53,3 +53,21 @@ fit_ets<-ets(Monthly_Pricets)
 fit_ets
 plot(forecast(fit_ets),xlab="Time",flty=2)
 accuracy(fit_ets)
+
+
+
+#####
+forecast_Original_Arma1<-accumulate(forecast(m2,h=10)$mean     ,sum)+daily_2008$收盘[length(daily_2008$收盘)]
+upper80_Original_Arma1 <-accumulate(forecast(m2,h=10)$upper[,1],sum)+daily_2008$收盘[length(daily_2008$收盘)]
+upper95_Original_Arma1 <-accumulate(forecast(m2,h=10)$upper[,2],sum)+daily_2008$收盘[length(daily_2008$收盘)]
+lower80_Original_Arma1 <-accumulate(forecast(m2,h=10)$lower[,1],sum)+daily_2008$收盘[length(daily_2008$收盘)]
+lower95_Original_Arma1 <-accumulate(forecast(m2,h=10)$lower[,2],sum)+daily_2008$收盘[length(daily_2008$收盘)]
+
+forecast_Original_Arma2<-accumulate(forecast(m3,h=10)$mean     ,sum)+daily_2008$收盘[length(daily_2008$收盘)]
+upper80_Original_Arma2 <-accumulate(forecast(m3,h=10)$upper[,1],sum)+daily_2008$收盘[length(daily_2008$收盘)]
+upper95_Original_Arma2 <-accumulate(forecast(m3,h=10)$upper[,2],sum)+daily_2008$收盘[length(daily_2008$收盘)]
+lower80_Original_Arma2 <-accumulate(forecast(m3,h=10)$lower[,1],sum)+daily_2008$收盘[length(daily_2008$收盘)]
+lower95_Original_Arma2 <-accumulate(forecast(m3,h=10)$lower[,2],sum)+daily_2008$收盘[length(daily_2008$收盘)]
+
+
+
