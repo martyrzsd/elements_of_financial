@@ -1,0 +1,1168 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+    	\usepackage[T1]{fontenc}
+    	\usepackage{mathpazo}
+    \else
+    	\usepackage{fontspec}
+    \fi
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+
+    % \usepackage{graphicx}
+    
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    
+    % \let\Oldincludegraphics\includegraphics
+    
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    
+    
+    
+    % \usepackage{caption}
+    % \DeclareCaptionFormat{nocaption}{}
+    % \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.6\linewidth}{0.6\paperheight}}
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for grffile with XeLaTeX
+    \def\Gread@@xetex#1{%
+      \IfFileExists{"\Gin@base".bb}%
+      {\Gread@eps{\Gin@base.bb}}%
+      {\Gread@@xetex@aux#1}%
+    }
+    \makeatother
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{0,0,0.2}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\footnotesize' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\footnotesize$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{left=1in, right=1in, top=1in, bottom=1in}
+    
+    
+
+
+
+
+
+
+
+
+
+
+    \usepackage{ctex}
+    \usepackage{pdfpages}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\usepackage{subcaption}
+
+
+
+
+
+
+
+
+    
+
+\begin{document}
+% \includepdf[width=\paperwidth]{FM.pdf}
+% \newpage
+\tableofcontents
+
+
+\newpage
+\section{前言}
+\qquad S\&P500指数是记录美国500家上市公司的一个股票指数, 与道琼斯指数相比, S\&P500指数包含的公司更多, 因此风险更为分散, 能够反映更广泛的市场变化, 被普遍认为是一种理想的股票指数期货合约的标的. 自2007年美国发生金融危机以来, 世界经济秩序都受到了冲击, S\&P500指数更是在2009年3月9日跌至672.88点, 随着美国实施启动量化宽松政策、下调利率, 之后的十一年, S\&P500呈稳定的上升趋势并在2020年2月19日达到历史最高点3393.52点, 然而之后便在3月9日、12日、16日、18日经历了惊人的四次熔断, 与最高点时相比接近下降了1000点. 在历史的波动点上, 金融预测便更具有显著地实践指导意义, 这也是我们的研究意义所在. 本文选用2008年至2020年S\&P500 的日收盘价作为研究数据, 采用ARIMA、ARMA+GARCH、指数相乘模型作为研究工具, 预测S\&P500指数的变化规律. 
+
+\section{ARIMA介绍}
+
+\qquad ARIMA模型是最著名的时间序列预测分析方法之一, 全称为差分自回归移动平均模型(Autoregressive Integrated Moving Average Model,简记ARIMA), 于70年代初由博克思(Box)和詹金斯(Jenkins)提出, 所以又称为box-jenkins模型、博克思-詹金斯法. ARIMA模型一般表示为ARIMA（p, d, q）, 其中AR是自回归, p为自回归项; MA为滑动平均, q为滑动平均项数, d为时间序列成为平稳序列时所做的差分次数. 
+
+\qquad ARIMA模型结合了AR和MA模型的思想, 其一般形式可以表达为
+\[
+(1-\sum_{i=1}^p \phi_i L^i)(1-L)^d X_t = (1+\sum_{i=1}^q \theta_i L^i)\varepsilon_t,d>0,d \in \mathbb{Z}
+\]
+
+为了使模型有意义, 一般要求模型中$\phi_i \ne \theta_i$, 否则模型将退化为一个白噪声序列. 
+
+\qquad ARIMA模型是建立在时间序列具有平稳性和方差齐性的基础上的, 使用ARIMA模型预测的一般步骤为：
+
+\qquad （一）根据时间序列的散点图、自相关函数和偏自相关函数图检验其方差、趋势及其季节性变化规律, 对序列的平稳性进行识别. 通常来讲,  经济运行的时间序列都不是平稳序列. 
+
+\qquad （二）对非平稳序列进行平稳化处理. 如果数据序列是非平稳的, 并存在一定的增长或下降趋势, 则需要使用平滑法或差分法对原始数据进行处理；如果数据存在异方差, 则需对数据进行技术处理, 直到处理后的数据的自相关函数值和偏相关函数值无显著地异于零. 
+
+\qquad （三）根据时间序列模型的识别规则, 建立相应的模型. 若平稳序列的偏相关函数是截尾的, 而自相关函数是拖尾的, 可断定序列适合AR模型；若平稳序列的偏相关函数是拖尾的, 而自相关函数是截尾的, 则可断定序列适合MA模型；若平稳序列的偏相关函数和自相关函数均是拖尾的, 则序列适合 ARMA模型. 
+
+\qquad （四）进行参数估计, 检验是否具有统计意义. 
+
+\qquad （五）进行假设检验, 诊断残差序列是否为白噪声. 
+
+\qquad （六）利用已通过检验的模型进行预测分析. 
+
+\qquad 在此我们还考虑引入季节性变化对模型的影响. 季节性模型在非季节ARIMA模型的基础上加上季节自回归(SAR)、季节滑动平均(SMA)和季节差分(D), 记为ARIMA(p,d,q)(P,D,Q). 其表达式分为两部分：
+
+回归部分误差结构方程
+\[(1-\phi_1L-\phi_2L^2-...-\phi_PL^P)(1-\varphi_1L^{-1}-...-\varphi_PL^{-1})\mu_t=\varepsilon_t\]
+
+滑动平均部分误差结构方程\[\mu_t=(1+\theta_1L+\theta_2L^2+...+\theta_PL^P)(1+\omega_1L^{-1}+...+\omega_QL^{-1})\varepsilon_t\]
+
+两部分合并即成为季节模型的一般表达式, 其中L为滞后算子, $L^{-1}\mu_t=\mu_{t-1}$. 
+
+\section{原始数据分析}
+\qquad 首先, 画出$S\&P500$的走势图, 如图 \ref{fig:1}.
+\begin{center}
+    \hspace{30pt}\begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-30pt}\includegraphics[width=.9\textwidth]{output_3_0}
+            \caption{08年后S\&P500的指数走势.\label{fig:1}}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_4_0}
+            \caption{S\&P500指数差分序列的图示.\label{fig:2}}
+        \end{figure}
+    \end{minipage}
+\end{center}
+
+
+从图 \ref{fig:1} 中, 可以明显的看出它有一定的趋势, 因而并非平稳序列. 故考虑它的一阶差分序列, 将其画出, 如图 \ref{fig:2}. 从中可以看出, 差分序列基本都是围绕着0上下波动的, 因此, 可以看作是弱平稳序列. 于是, 接下来对于一阶差分序列进行分析. 
+\section{初步建模}
+\qquad 首先需要根据数据确定ARIMA模型的阶. 作出ACF和PACF函数图如图 \ref{fig:3} \ref{fig:4}, 虚线表示的是两倍标准误差的上下界. 由ACF图可以确定滑动平均阶数q=0. 从PACF图可以看到前三个间隔点上的偏自相关系数都比较显著, 故选取自回归阶数p=3（尽管间隔更大时也有较显著的偏自相关系数, 但为使模型简单, 我们在此不作考虑）. 因此先考虑使用$ARIMA(3,1,0)$模型对其近似. 
+
+\begin{center}
+    \hspace{30pt}\begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-30pt}\includegraphics[width=.9\textwidth]{output_8_0}
+            \caption{差分序列的$ACF$图.\label{fig:3}}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_9_0}
+            \caption{差分序列的$PACF$图.\label{fig:4}}
+        \end{figure}
+    \end{minipage}
+\end{center}
+
+\qquad 使用$ARIMA$对其进行建模, 得到的模型为
+\[
+    \left(Y_t+0.1151 Y_{t-1}+ 0.0337Y_{t-2}-0.0943 Y_{t-3}\right)\left(Y_t+0.0708Y_{t-1}-0.0625Y_{t-2}\right)=\varepsilon_t,\ \varepsilon_t\sim N(0,1).
+\]
+并且画出单位根的分布与残差的图像
+\begin{center}
+    \hspace{30pt}\begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-30pt}\includegraphics[width=.9\textwidth]{output_14_0}
+            \caption{单位根的分布.\label{fig:5}}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_16_1}
+            \caption{模型残差的分布.\label{fig:6}}
+        \end{figure}
+    \end{minipage}
+\end{center}
+
+\qquad 对时间序列作ACF检验及单位根检验, 结果得到ACF图中自相关系数很快衰减为0, 并且单位根检验中特征方程的根均落在单位圆内, 二者皆表明了一阶差分后的时间序列是平稳的.  
+
+\qquad 通过残差的$ACF$图(图 \ref{fig:6}), 可以看出, 尽管残差的稳定性和正态性都比较好, 但模型仍不是十分理想. 接下来使用此模型对于未来的走势进行预测, 预测结果如图 \ref{fig:7}.
+\begin{figure}
+    \centering
+    \includegraphics[width=.4\textwidth]{output_18_0}
+    \caption{初步模型预测结果. \label{fig:7}}
+\end{figure}
+\section{剔除季节因素}
+\qquad 价格可能会受到季节性的影响, 并且数据为股票市场, 因此可以合理地假设这个周期现象为周模式, 因为一周有五个工作日, 故先对于价格差分序列拟合一个纯季节模型. 得到的模型$b_t$如下
+\[
+    b_t=(1+0.0817L^5-0.0667L^{10})Y_t.  
+\]
+同样, 画出它的单位根的分布与残差的图像
+\begin{center}
+    \hspace{30pt}\begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-30pt}\includegraphics[width=.9\textwidth]{output_23_0}
+            \caption{单位根的分布.\label{fig:8}}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_25_1}
+            \caption{模型残差的分布.\label{fig:9}}
+        \end{figure}
+    \end{minipage}
+\end{center}
+    
+\qquad 同样的, 可以看到单位根均在单位圆之内, 因此是平稳的. 但从$ACF$序列中也可以看出纯季节性的模型并不理想. 使用此模型进行预测结果如图 \ref{fig:10}.
+\begin{figure}
+    \centering
+    \includegraphics[width=.4\textwidth]{output_27_0}
+    \caption{纯季节模型预测结果.\label{fig:10}}
+\end{figure}
+
+\qquad 之后, 对于$Y_t$, 结合春季节性模型进行调整
+\[
+    Y_t^*=Y_t+0.0817Y_{t-5}+0.0667Y_{t-10}, t=11,12,13,\cdots,3071.
+\]
+
+首先对调整后的自相关与偏自相关序列做分析, 画出其图像如图 \ref{fig:11} \ref{fig:12}. 
+
+\begin{center}
+    \hspace{30pt}\begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_30_0}
+            \caption{调整后的差分序列$ACF$图.\label{fig:11}}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_30_1}
+            \caption{调整后的差分序列$PACF$图.\label{fig:12}}
+        \end{figure}
+    \end{minipage}
+\end{center}
+
+\qquad 可以看出, 相比于原来的$ACF$与$PACF$图像, 调整后的价格在5,10阶上已有大大的下降, 因此, 可以说我们对于季节性的影响或多或少的剔除了一点. 
+\section{结合GARCH模型}
+\qquad GARCH模型允许波动率随着时间进行变化, 并且允许波动率的聚集. 即在随机项$\epsilon_t$前的系数并非像ARMA一样为一个常数, 而是一个与时间相关的函数$\sigma_t$. 因此, 我们需要对这个函数进行建模. GARCH对这个系数的建模是十分类似于ARMA模型对于价格的建模的. 如果对数收益表示为$r_t=\mu_t+a_t=\mu_t+\sigma_t\epsilon_t$, 那么GARCH(1,1)则为
+\begin{equation*}
+\sigma_t^2=\alpha_0+\alpha_1\alpha_{t-1}^2+\beta_1\sigma^2_{t-1}
+\end{equation*}
+
+\qquad 因为这样的波动率从确定的值变成了一个函数, 就可以用来模拟市场大起大落扎堆的现象, 能够对市场的变化响应得比ARMA模型更灵敏.
+
+\qquad 我们猜想数据会受到多方面的外部因素的扰动, 所以对较长时间的数据分析十分的困难. 从数据分析中, 可以看出我们的差分序列波动的最大程度既是价格上涨与下跌最明显的时候. ARMA模型无法处理这样的波动现象. 于是结合了GARCH模型来解释数据, 提高模型的预测能力. 
+
+\subsection{使用GARCH初次建模}
+\qquad 首先使用ARMA(3,0)+GARCH(1,1)对于调整后的价格序列进行建模. 拟合的模型为
+\begin{equation*}\begin{aligned}
+    Y_{t}^{*} &=-0.0428 Y_{t-1}^{*}-0.0062 Y_{t-2}^{*}-0.0104 Y_{t-3}^{*}+a_{t}, \quad a_{t}=\sigma_{t} \varepsilon_{t}, \quad \varepsilon_{t} \sim N(0,1) \\
+    \sigma_{t}^{2} &=0.1035+ 0.1449 a_{t-1}^{2}+0.8288 \sigma_{t-1}^{2}
+\end{aligned}\end{equation*}
+
+同时, 还发现$ARMA$的第一个系数比较显著. 
+
+\qquad 为了进一步的改进模型, 我们使用残差的相关图像对模型进行了可视化. 结果如图 \ref{fig:13} \ref{fig:14}.
+\begin{center}
+    \hspace{30pt}\begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_36_0}
+            \caption{模型所拟合的时间序列.\label{fig:13}}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_37_0}
+            \caption{残差值与正态分布的QQ图.\label{fig:14}}
+        \end{figure}
+    \end{minipage}
+\end{center}
+    
+\qquad 可以明显地看到, 标准化残差的正态性并不是十分的好, 因此模型还需进一步的调整.
+
+\subsection{新息分布更换}
+\qquad 改进的模型与上一个模型基本相同, 但是考虑了不同的新息分布. 采用了t分布作为新的新息分布. 模型如下
+\begin{equation*}\begin{aligned}
+    Y_{t}^{*} &=-0.0395 Y_{t-1}^{*}-0.0047 Y_{t-2}^{*}-0.0035 Y_{t-3}^{*}+a_{t}, \quad a_{t}=\sigma_{t} \varepsilon_{t}, \quad \varepsilon_{t} \sim N(0,1) \\
+    \sigma_{t}^{2} &=0.0739+ 0.1349 a_{t-1}^{2}+0.8516 \sigma_{t-1}^{2}
+\end{aligned}\end{equation*}
+\qquad 从结果可以看到, 依旧只有$ARMA$的第一个系数比较显著, 同时, 并且我们对新息的假设也通过了$L-B$检验. 同样的, 我们对于残差的分布进行可视化. 如图 \ref{fig:15} \ref{fig:16}.
+
+\begin{center}
+    \hspace{30pt}\begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_44_0}
+            \caption{模型所拟合的时间序列.\label{fig:15}}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_45_0}
+            \caption{残差值与正态分布的QQ图.\label{fig:16}}
+        \end{figure}
+    \end{minipage}
+\end{center}
+
+\qquad 从图中可以发现, 此时模型的效果反而变差了. 标准化残差的分布依旧左偏, 并且左偏得更加严重. 因此, 需要更新对于新息分布的假设. 自然而然的就考虑了能够处理这样情况的偏t分布.
+
+\subsection{缩减$ARMA$的系数个数}
+\qquad 由于前两次的模型除了$ARMA$的第一个系数以外, 其他系数都没有任何的统计显著性. 因此, 考虑将模型更换到$ARMA(1,0)+GARCH(1,1)$. 并且采用偏t分布作为新息分布. 拟合的模型如下
+\begin{equation*}\begin{aligned}
+    Y_{t}^{*} &=-0.0631 Y_{t-1}^{*}+a_{t}, \quad a_{t}=\sigma_{t} \varepsilon_{t}, \quad \varepsilon_{t} \sim N(0,1) \\
+    \sigma_{t}^{2} &=0.0729+ 0.1329 a_{t-1}^{2}+ 0.8554 \sigma_{t-1}^{2}
+\end{aligned}\end{equation*}
+
+\qquad 在这个模型中, $ARMA$的第一个系数的显著性依旧十分的高. 残差的分布可视化如图 \ref{fig:17} \ref{fig:18}.
+\begin{center}
+    \hspace{30pt}\begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_52_0}
+            \caption{模型所拟合的时间序列.\label{fig:17}}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \centering
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_53_0}
+            \caption{残差值与正态分布的QQ图.\label{fig:18}}
+        \end{figure}
+    \end{minipage}
+\end{center}
+
+\qquad 可以看到, 绝大部分点在该图中都表现出了一条直线的特征. 故可以认为偏t分布的假设对于新息而言是十分合理的, 虽然还是有轻微的左偏性.
+
+\qquad 接下来, 对超前五步的数值进行预测, 结果如下
+
+\begin{center}
+    \begin{tabular}{lllll}
+ meanForecast & meanError & standardDeviation & lowerInterval & upperInterval\\
+\hline
+	 -1.430017e-01 & 12.28936 & 12.28936 & -26.62170 & 22.24396\\
+	  9.020667e-03 & 12.24464 & 12.22007 & -26.37331 & 22.31450\\
+	 -5.690311e-04 & 12.17573 & 12.15121 & -26.23443 & 22.17939\\
+	  3.589496e-05 & 12.10715 & 12.08276 & -26.08606 & 22.05506\\
+	 -2.264284e-06 & 12.03899 & 12.01474 & -25.93924 & 21.93086\\
+\end{tabular}
+\end{center}
+
+将其图示化, 如图 \ref{fig:19}. 
+\begin{figure}
+    \centering
+    \hspace{-30pt}\includegraphics[width=.46\textwidth]{output_55_1}
+    \caption{带置信区间的预测结果.\label{fig:19}}
+\end{figure}
+
+\qquad 可以看到, 模型预测的$95\%$置信区间基本上处于调整后差分序列两个极值附近. 因为采用的是偏t分布, 所以区间并未呈现对称性. 反而是差分为正的置信区间更短, 意味着估计的确定性更高, 也就意味着我们对于未来的市场应该保持一个比较积极乐观的态度. 
+\section{指数模型}
+\qquad 指数模型是用来预测时序未来值时最常用的一种模型. 经过观察可以发现$2008\sim2019$年的S\&P$500$指数整体呈上升趋势, 因此可以使用指数模型对其进行拟合. 
+
+\qquad 不同指数模型在建模过程中选用的因子不同. 如单指数模型(simple exponential model)拟合的只是常数水平项和时间点$i$处随机项的时间序列, 即认为时间序列不存在趋势项和季节效应; 双指数模型(double exponential model)也叫Holt指数平滑, 拟合的是有水平项和趋势项的时序; 三指数模型(triple exponential model)拟合的是有水平项、趋势项以及季节效应的时序. 
+
+\qquad R中的ets()函数有自动选取对原始数据拟合优度最高的模型的功能, 因此, 我们使用拟合优度最高的方式, 获得如图 \ref{fig:20} 所示的结果.
+\begin{figure}
+    \centering
+    \hspace{-30pt}\includegraphics[width=.46\textwidth]{output_60_0}
+    \caption{指数模型的结果.\label{fig:20}}
+\end{figure}
+\qquad 由于ets()的预测frequency的最大选择为24, 所以原数据直接采用了每月的S\&P500指数. 可以看到, 最终结果为$ETS(M,N,N), \alpha=0.99$, 即代表了单指数相乘模型. 而$\alpha$参数控制权重下降的速度, $\alpha$越接近1, 近期观测值的权重越大; 反之, 越接近于0, 则历史观测值的权重越大. 也就是
+\[Y_t=level+irregular_r.\]
+
+\qquad 单指数平滑根据现有的时序值的加权平均对未来做短期预测, 图 \ref{fig:21} 给出了其折线图和以下八个季度的预测. 
+\begin{figure}
+    \centering
+    \hspace{-30pt}\includegraphics[width=.46\textwidth]{output_62_0}
+    \caption{\footnotesize 可乘的单指数光滑预测, 其中预测值由虚线表示, $80\%$和$95\%$置信区间分别由淡灰色和深灰色表示.\label{fig:21}}
+\end{figure}
+
+\vspace{-10pt}\qquad 同时, 模型的各个度量标准如下
+
+\ 
+
+\begin{center}
+\begin{tabular}{r|lllllll}
+  & ME & RMSE & MAE & MPE & MAPE & MASE & ACF1\\
+\hline
+	Training set & 0.7217255 & 8.607849 & 5.926743 & 0.2795169 & 3.445388 & 0.2628449 & 0.0787231\\
+\end{tabular}
+\normalsize
+\end{center}
+
+\ 
+
+\qquad 一般来说由于平均误差和平均百分比会正向负向相抵消, 所以用处不大, RMSE给出了平均误差平方和平方根, 由于单指数模型相对简单易行, 即这样的误差水平还算令人满意. 
+\section{结语}
+\qquad 本文中我们采用了ARIMA、ARMA+GARCH、指数相乘三个模型对S\&P500进行研究, 在ARIMA与ARMA+GARCH中我们都试图通过去除季节性因素使预测更为准确, 并且对残差进行了正态性分析. 而对于新息的预测都是偏向积极, 即目前市场应该会慢慢回温. 在实验过程中, 我们也运用了一些自己并不是很熟悉的知识, 可能会存在使用理解有差或者使用不当的情况, 但这也是我们学习与探索的过程. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\nocite{*}
+\bibliographystyle{unsrt}
+\bibliography{wpref}
+\addcontentsline{toc}{section}{7\ \ \,参考文献}
+\appendix
+\section{完整代码}
+\tiny
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{library}\PY{p}{(}\PY{n}{fGARCH}\PY{p}{)}
+\PY{n+nf}{library}\PY{p}{(}\PY{n}{ggplot2}\PY{p}{)}
+\PY{n+nf}{library}\PY{p}{(}\PY{n}{forecast}\PY{p}{)}
+\PY{n+nf}{library}\PY{p}{(}\PY{n}{tseries}\PY{p}{)}
+\PY{n+nf}{library}\PY{p}{(}\PY{n}{scales}\PY{p}{)}
+\PY{n+nf}{library}\PY{p}{(}\PY{n}{plyr}\PY{p}{)}
+\PY{n+nf}{library}\PY{p}{(}\PY{n}{TTR}\PY{p}{)}
+\PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{2020}\PY{p}{)}
+\PY{n}{daily\PYZus{}2008} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{./Data/SP500/08年每日.csv\PYZdq{}}\PY{p}{)}
+\PY{n}{SPY} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{ts}\PY{p}{(}\PY{n}{daily\PYZus{}2008}\PY{o}{\PYZdl{}}收盘\PY{p}{,} \PY{n}{frequency} \PY{o}{=} \PY{l+m}{251}\PY{p}{,} \PY{n}{start} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2008}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{)}
+\PY{n}{Diffrence\PYZus{}of\PYZus{}SPY} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{ts}\PY{p}{(}\PY{n+nf}{diff}\PY{p}{(}\PY{n}{SPY}\PY{p}{)}\PY{p}{,} \PY{n}{frequency} \PY{o}{=} \PY{l+m}{251}\PY{p}{,} \PY{n}{start} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2008}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{SPY}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{Diffrence\PYZus{}of\PYZus{}SPY}\PY{p}{)}
+\PY{n}{cprice} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{diff}\PY{p}{(}\PY{n}{daily\PYZus{}2008}\PY{o}{\PYZdl{}}收盘\PY{p}{)}
+\PY{n+nf}{acf}\PY{p}{(}\PY{n}{cprice}\PY{p}{)}
+\PY{n+nf}{pacf}\PY{p}{(}\PY{n}{cprice}\PY{p}{)}
+\PY{n}{m2} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{arima}\PY{p}{(}\PY{n}{cprice}\PY{p}{,} \PY{n}{order} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{)}\PY{p}{,} 
+            \PY{n}{seasonal} \PY{o}{=} \PY{n+nf}{list}\PY{p}{(}\PY{n}{order} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{)}\PY{p}{,} \PY{n}{period} \PY{o}{=} \PY{l+m}{5}\PY{p}{)}\PY{p}{,} \PY{n}{include.mean} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)}
+\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m2}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+\begin{Verbatim}[commandchars=\\\{\}]
+Call:
+arima(x = cprice, order = c(3, 0, 0), seasonal = list(order = c(2, 0, 0), period
+= 5),
+    include.mean = F)
+
+Coefficients:
+          ar1      ar2     ar3     sar1    sar2
+      -0.1151  -0.0337  0.0943  -0.0708  0.0625
+s.e.   0.0180   0.0186  0.0182   0.0186  0.0192
+
+sigma\^{}2 estimated as 4.69:  log likelihood = -6752.41,  aic = 13516.81
+
+Training set error measures:
+                    ME     RMSE      MAE MPE MAPE      MASE         ACF1
+Training set 0.0347671 2.165543 1.344143 NaN  Inf 0.6757011 -0.001454335
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m2}\PY{p}{)}
+\PY{n+nf}{checkresiduals}\PY{p}{(}\PY{n}{m2}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+\begin{Verbatim}[commandchars=\\\{\}]
+        Ljung-Box test
+
+data:  Residuals from ARIMA(3,0,0)(2,0,0)[5] with zero mean
+Q* = 7.5057, df = 5, p-value = 0.1857
+
+Model df: 5.   Total lags used: 10
+
+\end{Verbatim}
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{plot}\PY{p}{(}\PY{n+nf}{forecast}\PY{p}{(}\PY{n}{m2}\PY{p}{,}\PY{n}{h}\PY{o}{=}\PY{l+m}{10}\PY{p}{)}\PY{p}{,}\PY{n}{xlim}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{3000}\PY{p}{,}\PY{l+m}{3090}\PY{p}{)}\PY{p}{)}
+\PY{n}{m3} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{arima}\PY{p}{(}\PY{n}{cprice}\PY{p}{,} \PY{n}{seasonal} \PY{o}{=} \PY{n+nf}{list}\PY{p}{(}\PY{n}{order} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{)}\PY{p}{,} \PY{n}{period} \PY{o}{=} \PY{l+m}{5}\PY{p}{)}\PY{p}{,} \PY{n}{include.mean} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)}
+\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m3}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+\begin{Verbatim}[commandchars=\\\{\}]
+Call:
+arima(x = cprice, seasonal = list(order = c(2, 0, 0), period = 5), include.mean
+= F)
+
+Coefficients:
+         sar1    sar2
+      -0.0817  0.0667
+s.e.   0.0183  0.0191
+
+sigma\^{}2 estimated as 4.801:  log likelihood = -6788.66,  aic = 13583.32
+
+Training set error measures:
+                     ME     RMSE      MAE MPE MAPE      MASE       ACF1
+Training set 0.03290312 2.191185 1.340943 NaN  Inf 0.6740924 -0.1135116
+    \end{Verbatim}
+
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m3}\PY{p}{)}
+\PY{n+nf}{checkresiduals}\PY{p}{(}\PY{n}{m3}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+\begin{Verbatim}[commandchars=\\\{\}]
+        Ljung-Box test
+
+data:  Residuals from ARIMA(0,0,0)(2,0,0)[5] with zero mean
+Q* = 83.375, df = 8, p-value = 1.021e-14
+
+Model df: 2.   Total lags used: 10
+
+    \end{Verbatim}
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{plot}\PY{p}{(}\PY{n+nf}{forecast}\PY{p}{(}\PY{n}{m3}\PY{p}{,}\PY{n}{h}\PY{o}{=}\PY{l+m}{10}\PY{p}{)}\PY{p}{,}\PY{n}{xlim}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{3000}\PY{p}{,}\PY{l+m}{3090}\PY{p}{)}\PY{p}{)}
+\PY{n}{adjcp} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{cprice}\PY{n}{[11}\PY{o}{:}\PY{l+m}{3081}\PY{n}{]} \PY{o}{+} \PY{l+m}{0.0817} \PY{o}{*} \PY{n}{cprice}\PY{n}{[6}\PY{o}{:}\PY{l+m}{3076}\PY{n}{]} \PY{o}{\PYZhy{}} \PY{l+m}{0.0667} \PY{o}{*} \PY{n}{cprice}\PY{n}{[1}\PY{o}{:}\PY{l+m}{3071}\PY{n}{]}
+\PY{n+nf}{par}\PY{p}{(}\PY{n}{mfrow} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{)}
+\PY{n+nf}{acf}\PY{p}{(}\PY{n}{adjcp}\PY{p}{)}
+\PY{n+nf}{pacf}\PY{p}{(}\PY{n}{adjcp}\PY{p}{)}
+\PY{n}{m4} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{GARCHFit}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n+nf}{arma}\PY{p}{(}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{0}\PY{p}{)} \PY{o}{+} \PY{n+nf}{GARCH}\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{,} 
+               \PY{n}{data} \PY{o}{=} \PY{n}{adjcp}\PY{p}{,} \PY{n}{trace} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} \PY{n}{include.mean} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)}
+\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m4}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+\begin{Verbatim}[commandchars=\\\{\}]
+Title:
+ GARCH Modelling
+
+Call:
+ GARCHFit(formula = \textasciitilde{}arma(3, 0) + GARCH(1, 1), data = adjcp, include.mean = F,
+    trace = F)
+
+Mean and Variance Equation:
+ data \textasciitilde{} arma(3, 0) + GARCH(1, 1)
+<environment: 0x0000000020098838>
+ [data = adjcp]
+
+Conditional Distribution:
+ norm
+
+Coefficient(s):
+       ar1         ar2         ar3       omega      alpha1       beta1
+-0.0428183  -0.0062084  -0.0104306   0.1035492   0.1448658   0.8288358
+
+Std. Errors:
+ based on Hessian
+
+Error Analysis:
+        Estimate  Std. Error  t value Pr(>|t|)
+ar1    -0.042818    0.019885   -2.153   0.0313 *
+ar2    -0.006208    0.019714   -0.315   0.7528
+ar3    -0.010431    0.019380   -0.538   0.5904
+omega   0.103549    0.016815    6.158 7.36e-10 ***
+alpha1  0.144866    0.013950   10.385  < 2e-16 ***
+beta1   0.828836    0.015207   54.502  < 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Log Likelihood:
+ -5785.103    normalized:  -1.883785
+
+Standardised Residuals Tests:
+                                Statistic p-Value
+ Jarque-Bera Test   R    Chi\^{}2  897.1599  0
+ Shapiro-Wilk Test  R    W      0.9735453 0
+ Ljung-Box Test     R    Q(10)  14.04683  0.1708662
+ Ljung-Box Test     R    Q(15)  20.6747   0.1475486
+ Ljung-Box Test     R    Q(20)  29.32515  0.08155163
+ Ljung-Box Test     R\^{}2  Q(10)  16.13787  0.09575306
+ Ljung-Box Test     R\^{}2  Q(15)  21.61548  0.1182901
+ Ljung-Box Test     R\^{}2  Q(20)  23.78189  0.2520496
+ LM Arch Test       R    TR\^{}2   18.69182  0.09624218
+
+Information Criterion Statistics:
+     AIC      BIC      SIC     HQIC
+3.771477 3.783258 3.771470 3.775710
+
+    \end{Verbatim}
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m4}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{1}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m4}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{13}\PY{p}{)}
+\PY{n}{m5} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{GARCHFit}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n+nf}{arma}\PY{p}{(}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{0}\PY{p}{)} \PY{o}{+} \PY{n+nf}{GARCH}\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{,} 
+               \PY{n}{data} \PY{o}{=} \PY{n}{adjcp}\PY{p}{,} \PY{n}{trace} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} \PY{n}{include.mean} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} \PY{n}{cond.dist} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{std\PYZdq{}}\PY{p}{)}
+\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m5}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+\begin{Verbatim}[commandchars=\\\{\}]
+Title:
+ GARCH Modelling
+
+Call:
+ GARCHFit(formula = \textasciitilde{}arma(3, 0) + GARCH(1, 1), data = adjcp, cond.dist = "std",
+    include.mean = F, trace = F)
+
+Mean and Variance Equation:
+ data \textasciitilde{} arma(3, 0) + GARCH(1, 1)
+<environment: 0x0000000015033cf8>
+ [data = adjcp]
+
+Conditional Distribution:
+ std
+
+Coefficient(s):
+       ar1         ar2         ar3       omega      alpha1       beta1
+-0.0395068  -0.0046808  -0.0035299   0.0739401   0.1348823   0.8515826
+     shape
+ 5.9149506
+
+Std. Errors:
+ based on Hessian
+
+Error Analysis:
+        Estimate  Std. Error  t value Pr(>|t|)
+ar1    -0.039507    0.018535   -2.132    0.033 *
+ar2    -0.004681    0.018732   -0.250    0.803
+ar3    -0.003530    0.018477   -0.191    0.848
+omega   0.073940    0.017372    4.256 2.08e-05 ***
+alpha1  0.134882    0.016180    8.337  < 2e-16 ***
+beta1   0.851583    0.016356   52.065  < 2e-16 ***
+shape   5.914951    0.652243    9.069  < 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Log Likelihood:
+ -5705.55    normalized:  -1.85788
+
+Standardised Residuals Tests:
+                                Statistic p-Value
+ Jarque-Bera Test   R    Chi\^{}2  976.3192  0
+ Shapiro-Wilk Test  R    W      0.9727265 0
+ Ljung-Box Test     R    Q(10)  13.80983  0.1818439
+ Ljung-Box Test     R    Q(15)  20.30748  0.1604519
+ Ljung-Box Test     R    Q(20)  28.68535  0.09414238
+ Ljung-Box Test     R\^{}2  Q(10)  14.30046  0.1597227
+ Ljung-Box Test     R\^{}2  Q(15)  20.81853  0.1427284
+ Ljung-Box Test     R\^{}2  Q(20)  23.03286  0.2871838
+ LM Arch Test       R    TR\^{}2   17.54599  0.1301872
+
+Information Criterion Statistics:
+     AIC      BIC      SIC     HQIC
+3.720319 3.734063 3.720308 3.725257
+
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m5}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{1}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m5}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{13}\PY{p}{)}
+\PY{n}{m6} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{GARCHFit}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n+nf}{arma}\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{0}\PY{p}{)} \PY{o}{+} \PY{n+nf}{GARCH}\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{,} 
+               \PY{n}{data} \PY{o}{=} \PY{n}{adjcp}\PY{p}{,} \PY{n}{trace} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} \PY{n}{include.mean} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} \PY{n}{cond.dist} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{sstd\PYZdq{}}\PY{p}{)}
+\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m6}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+\begin{Verbatim}[commandchars=\\\{\}]
+Title:
+ GARCH Modelling
+
+Call:
+ GARCHFit(formula = \textasciitilde{}arma(1, 0) + GARCH(1, 1), data = adjcp, cond.dist = "sstd",
+    include.mean = F, trace = F)
+
+Mean and Variance Equation:
+ data \textasciitilde{} arma(1, 0) + GARCH(1, 1)
+<environment: 0x000000001e801b20>
+ [data = adjcp]
+
+Conditional Distribution:
+ sstd
+
+Coefficient(s):
+      ar1      omega     alpha1      beta1       skew      shape
+-0.063081   0.072857   0.132903   0.855370   0.856473   6.084229
+
+Std. Errors:
+ based on Hessian
+
+Error Analysis:
+        Estimate  Std. Error  t value Pr(>|t|)
+ar1     -0.06308     0.01861   -3.390 0.000699 ***
+omega    0.07286     0.01681    4.335 1.46e-05 ***
+alpha1   0.13290     0.01568    8.475  < 2e-16 ***
+beta1    0.85537     0.01565   54.655  < 2e-16 ***
+skew     0.85647     0.01979   43.284  < 2e-16 ***
+shape    6.08423     0.71690    8.487  < 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Log Likelihood:
+ -5682.663    normalized:  -1.850428
+
+Standardised Residuals Tests:
+                                Statistic p-Value
+ Jarque-Bera Test   R    Chi\^{}2  980.1835  0
+ Shapiro-Wilk Test  R    W      0.9725485 0
+ Ljung-Box Test     R    Q(10)  15.80819  0.1052563
+ Ljung-Box Test     R    Q(15)  22.69048  0.0909363
+ Ljung-Box Test     R    Q(20)  31.27833  0.05162165
+ Ljung-Box Test     R\^{}2  Q(10)  15.33821  0.1202093
+ Ljung-Box Test     R\^{}2  Q(15)  21.69158  0.1161498
+ Ljung-Box Test     R\^{}2  Q(20)  24.03101  0.2410402
+ LM Arch Test       R    TR\^{}2   18.63672  0.09768077
+
+Information Criterion Statistics:
+     AIC      BIC      SIC     HQIC
+3.704763 3.716543 3.704755 3.708995
+
+    \end{Verbatim}
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m6}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{1}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m6}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{13}\PY{p}{)}
+\PY{n+nf}{predict}\PY{p}{(}\PY{n}{m6}\PY{p}{,} \PY{n}{n.ahead} \PY{o}{=} \PY{l+m}{5}\PY{p}{,} \PY{n}{plot} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+\begin{tabular}{lllll}
+ meanForecast & meanError & standardDeviation & lowerInterval & upperInterval\\
+\hline
+	 -1.430017e-01 & 12.28936 & 12.28936 & -26.62170 & 22.24396\\
+	  9.020667e-03 & 12.24464 & 12.22007 & -26.37331 & 22.31450\\
+	 -5.690311e-04 & 12.17573 & 12.15121 & -26.23443 & 22.17939\\
+	  3.589496e-05 & 12.10715 & 12.08276 & -26.08606 & 22.05506\\
+	 -2.264284e-06 & 12.03899 & 12.01474 & -25.93924 & 21.93086\\
+\end{tabular}
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{monthly\PYZus{}2008} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{./Data/SP500/08年每月.csv\PYZdq{}}\PY{p}{)}
+\PY{n}{Monthly\PYZus{}Price} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{monthly\PYZus{}2008}\PY{o}{\PYZdl{}}收盘
+\PY{n}{Monthly\PYZus{}Pricets} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{ts}\PY{p}{(}\PY{n}{Monthly\PYZus{}Price}\PY{p}{,} \PY{n}{frequency} \PY{o}{=} \PY{l+m}{12}\PY{p}{,} \PY{n}{start} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2008}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{)}
+\PY{n}{fit\PYZus{}ets} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{ets}\PY{p}{(}\PY{n}{Monthly\PYZus{}Pricets}\PY{p}{)}
+\PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit\PYZus{}ets}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+\begin{Verbatim}[commandchars=\\\{\}]
+ETS(M,N,N)
+
+Call:
+ ets(y = Monthly\_Pricets)
+
+  Smoothing parameters:
+    alpha = 0.9999
+
+  Initial states:
+    l = 137.0724
+
+  sigma:  0.046
+
+     AIC     AICc      BIC
+1345.616 1345.784 1354.587
+
+Training set error measures:
+                    ME     RMSE      MAE       MPE     MAPE      MASE      ACF1
+Training set 0.7217255 8.607849 5.926743 0.2795169 3.445388 0.2628449 0.0787231
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{fit\PYZus{}ets}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n+nf}{forecast}\PY{p}{(}\PY{n}{fit\PYZus{}ets}\PY{p}{)}\PY{p}{,} \PY{n}{xlab} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Time\PYZdq{}}\PY{p}{,} \PY{n}{flty} \PY{o}{=} \PY{l+m}{2}\PY{p}{)}
+\PY{n+nf}{accuracy}\PY{p}{(}\PY{n}{fit\PYZus{}ets}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+\begin{tabular}{r|lllllll}
+  & ME & RMSE & MAE & MPE & MAPE & MASE & ACF1\\
+\hline
+	Training set & 0.7217255 & 8.607849 & 5.926743 & 0.2795169 & 3.445388 & 0.2628449 & 0.0787231\\
+\end{tabular}
+
+\end{document}
