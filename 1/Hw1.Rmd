@@ -85,7 +85,12 @@ checkresiduals(m2)
 #### 预测
 
 ```{r}
+plot(cprice)
+par(new=T)
 plot(forecast(m2,h=10),xlim=c(3000,3090))
+
+
+
 ## 原数据预测
 forecast_Original_Arma1<-accumulate(forecast(m2,h=10)$mean     ,sum)+daily_2008$收盘[length(daily_2008$收盘)]
 upper80_Original_Arma1 <-accumulate(forecast(m2,h=10)$upper[,1],sum)+daily_2008$收盘[length(daily_2008$收盘)]
@@ -144,6 +149,8 @@ GARCH模型允许我们的波动率随着时间进行变化, 并且能够允许�
 首先考虑价格的样本自相关与偏自相关函数. 
 
 ```{r}
+#period <- 5
+#adjcp <- cprice[ accumulate(c(0,(1:length(m3$coef)*period),append ))]失败的自动化
 adjcp <- cprice[11:3081] + 0.0817 * cprice[6:3076] - 0.0667 * cprice[1:3071]
 acf(adjcp)
 pacf(adjcp)
@@ -268,6 +275,7 @@ plot(fit_ets)
 
 ```{r}
 plot(forecast(fit_ets,h=5),xlab="Time",flty=2,xlim=c(2015,2020.8))
+lines(Monthly_Price+100)
 ```
 
 
