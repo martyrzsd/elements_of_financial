@@ -365,7 +365,7 @@
       }
     % Slightly bigger margins than the latex defaults
     
-    \geometry{left=1in, right=1in, top=1in, bottom=1in}
+    \geometry{left=0.8in, right=0.8in, top=1in, bottom=1in}
     
     
 
@@ -380,8 +380,8 @@
 
     \usepackage{ctex}
     \usepackage{pdfpages}
-
-
+    \usepackage{longtable}
+    \usepackage{lscape}
 
 
 
@@ -420,7 +420,7 @@
 
 
 \usepackage{subcaption}
-
+\usepackage{color}
 
 
 
@@ -442,7 +442,7 @@
 
 \section{ARIMA介绍}
 
-\qquad ARIMA模型是最著名的时间序列预测分析方法之一, 全称为差分自回归移动平均模型(Autoregressive Integrated Moving Average Model,简记ARIMA), 于70年代初由博克思(Box)和詹金斯(Jenkins)提出, 所以又称为box-jenkins模型、博克思-詹金斯法. ARIMA模型一般表示为ARIMA（p, d, q）, 其中AR是自回归, p为自回归项; MA为滑动平均, q为滑动平均项数, d为时间序列成为平稳序列时所做的差分次数. 
+\qquad ARIMA模型是最著名的时间序列预测分析方法之一, 全称为差分自回归移动平均模型(Autoregressive Integrated Moving Average Model,简记ARIMA), 于70年代初由博克思(Box)和詹金斯(Jenkins)提出, 所以又称为box-jenkins模型、博克思-詹金斯法. ARIMA模型一般表示为ARIMA (p, d, q) , 其中AR是自回归, p为自回归项; MA为滑动平均, q为滑动平均项数, d为时间序列成为平稳序列时所做的差分次数. 
 
 \qquad ARIMA模型结合了AR和MA模型的思想, 其一般形式可以表达为
 \[
@@ -453,17 +453,17 @@
 
 \qquad ARIMA模型是建立在时间序列具有平稳性和方差齐性的基础上的, 使用ARIMA模型预测的一般步骤为：
 
-\qquad （一）根据时间序列的散点图、自相关函数和偏自相关函数图检验其方差、趋势及其季节性变化规律, 对序列的平稳性进行识别. 通常来讲,  经济运行的时间序列都不是平稳序列. 
+\qquad  (一) 根据时间序列的散点图、自相关函数和偏自相关函数图检验其方差、趋势及其季节性变化规律, 对序列的平稳性进行识别. 通常来讲,  经济运行的时间序列都不是平稳序列. 
 
-\qquad （二）对非平稳序列进行平稳化处理. 如果数据序列是非平稳的, 并存在一定的增长或下降趋势, 则需要使用平滑法或差分法对原始数据进行处理；如果数据存在异方差, 则需对数据进行技术处理, 直到处理后的数据的自相关函数值和偏相关函数值无显著地异于零. 
+\qquad  (二) 对非平稳序列进行平稳化处理. 如果数据序列是非平稳的, 并存在一定的增长或下降趋势, 则需要使用平滑法或差分法对原始数据进行处理；如果数据存在异方差, 则需对数据进行技术处理, 直到处理后的数据的自相关函数值和偏相关函数值无显著地异于零. 
 
-\qquad （三）根据时间序列模型的识别规则, 建立相应的模型. 若平稳序列的偏相关函数是截尾的, 而自相关函数是拖尾的, 可断定序列适合AR模型；若平稳序列的偏相关函数是拖尾的, 而自相关函数是截尾的, 则可断定序列适合MA模型；若平稳序列的偏相关函数和自相关函数均是拖尾的, 则序列适合 ARMA模型. 
+\qquad  (三) 根据时间序列模型的识别规则, 建立相应的模型. 若平稳序列的偏相关函数是截尾的, 而自相关函数是拖尾的, 可断定序列适合AR模型；若平稳序列的偏相关函数是拖尾的, 而自相关函数是截尾的, 则可断定序列适合MA模型；若平稳序列的偏相关函数和自相关函数均是拖尾的, 则序列适合 ARMA模型. 
 
-\qquad （四）进行参数估计, 检验是否具有统计意义. 
+\qquad  (四) 进行参数估计, 检验是否具有统计意义. 
 
-\qquad （五）进行假设检验, 诊断残差序列是否为白噪声. 
+\qquad  (五) 进行假设检验, 诊断残差序列是否为白噪声. 
 
-\qquad （六）利用已通过检验的模型进行预测分析. 
+\qquad  (六) 利用已通过检验的模型进行预测分析. 
 
 \qquad 在此我们还考虑引入季节性变化对模型的影响. 季节性模型在非季节ARIMA模型的基础上加上季节自回归(SAR)、季节滑动平均(SMA)和季节差分(D), 记为ARIMA(p,d,q)(P,D,Q). 其表达式分为两部分：
 
@@ -496,8 +496,13 @@
 
 从图 \ref{fig:1} 中, 可以明显的看出它有一定的趋势, 因而并非平稳序列. 故考虑它的一阶差分序列, 将其画出, 如图 \ref{fig:2}. 从中可以看出, 差分序列基本都是围绕着0上下波动的, 因此, 可以看作是弱平稳序列. 于是, 接下来对于一阶差分序列进行分析. 
 \section{初步建模}
-\qquad 首先需要根据数据确定ARIMA模型的阶. 作出ACF和PACF函数图如图 \ref{fig:3} \ref{fig:4}, 虚线表示的是两倍标准误差的上下界. 由ACF图可以确定滑动平均阶数q=0. 从PACF图可以看到前三个间隔点上的偏自相关系数都比较显著, 故选取自回归阶数p=3（尽管间隔更大时也有较显著的偏自相关系数, 但为使模型简单, 我们在此不作考虑）. 因此先考虑使用$ARIMA(3,1,0)$模型对其近似. 
-
+\qquad 首先对于差分序列实行$ADF$单位根检验, 结果如下
+\begin{center}
+    Dickey-Fuller = -14.196, Lag order = 14, p-value = 0.01. 
+\end{center}
+由此, 可以判断一阶差分序列是稳定的. 因此, 可以进行下一步分析. 
+\subsection{定阶}
+\qquad 之后需要确定ARIMA模型的阶数, 首先作出ACF和PACF图, 如图 \ref{fig:3} \ref{fig:4} 所示, 虚线表示的是两倍标准误差的上下界. 
 \begin{center}
     \hspace{30pt}\begin{minipage}{0.45\textwidth}
         \begin{figure}
@@ -514,66 +519,168 @@
         \end{figure}
     \end{minipage}
 \end{center}
+\qquad 可以看出, 两个图像都存在拖尾现象, $p=4,q=4$是一组可能的解, 但无法确定确切的最优的 (p,q) 的值, $ACF$和$PACF$为识别纯$AR(p)$和$MA(q)$模型提供了有效的工具. 但对于混合$ARMA$模型来说, 它的理论$ACF$和$PACF$有着无限多的非零值, 这使得根据样本$ACF$和$PACF$来识别混合模型非常困难. 于是我们通过更适合大样本的$EACF$来进一步确定.
+\begin{longtable}[c]{c|cccccccccccccc}
+    \caption{EACF结果}
+    \label{tab:my-table}\\
+    \hline
+    AR/MA & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 \\ \hline
+    \endfirsthead
+    %
+    \endhead
+    %
+    \hline
+    \endfoot
+    %
+    \endlastfoot
+    %
+    0     & X & O & X & O & X & X & O & O & X & X & X  & X  & O  & X  \\
+    1     & X & X & X & O & X & X & X & O & O & X & O  & X  & O  & O  \\
+    2     & X & X & O & O & O & X & O & O & O & X & X  & X  & X  & O  \\
+    3     & X & X & X & O & O & O & O & O & X & O & O  & X  & O  & O  \\
+    4     & X & X & X & X & O & O & O & X & O & O & O  & X  & X  & O  \\
+    5     & X & X & X & X & X & O & X & X & O & O & O  & X  & O  & X  \\
+    6     & X & X & X & X & X & X & O & X & O & O & O  & X  & O  & O  \\
+    7     & X & X & X & O & X & X & X & O & X & X & O  & X  & X  & O  \\ \hline
+    \end{longtable}
+由表\ref{tab:my-table} 可知, $p=2,q=3;p=2,q=6;p=3 q=4;p=3,q=5$时的ARMA模型可能比较合适. 
 
-\qquad 使用$ARIMA$对其进行建模, 得到的模型为
-\[
-    \left(Y_t+0.1151 Y_{t-1}+ 0.0337Y_{t-2}-0.0943 Y_{t-3}\right)\left(Y_t+0.0708Y_{t-1}-0.0625Y_{t-2}\right)=\varepsilon_t,\ \varepsilon_t\sim N(0,1).
+\qquad 使用赤池信息准则 (AIC) 对于模型的参数进行筛选, 此准则要求选择使下式最小化的模型\[
+    AIC=-2\log(MLE) +2k.
 \]
-并且画出单位根的分布与残差的图像
+通过R自带的$auto.arima()$函数(此函数以$AIC$为准则)得到的推荐参数选择为$p=5,q=0$. 另外, 还可以使用Schwarz贝叶斯信息准则($BIC$)最来筛选参数, $BIC$定义如下的\[
+    BIC= -2log(MLE)+klog(n).
+\]
+在此准则下各参数的$BIC$如图 \ref{fig:bic} 所示.
+\begin{figure}
+    \centering
+    \includegraphics[width=.4\textwidth]{bic}
+    \caption{最优子集结果. \label{fig:bic}}
+\end{figure}
+
+\qquad 从图中可以出, 应该使用$Y_{(t-1)},Y_{(t-5)},Y_{(t-9)},Y_{(t-10)}$来建模, 误差部分需要三阶和九阶滞后项. 但这样的话相关项会过多, 且结合ACF与PACF图, 发现在滞后项1、5、10上均比较大, 转而考虑是否存在季节性因素, 即将一周开盘的5天视为一个季节, 进行研究. 
+
+\qquad 首先对价格隔五项进行差分, 画出$ACF, PACF$的图像, 如图 \ref{fig:acf1} \ref{fig:pacf1}.
 \begin{center}
     \hspace{30pt}\begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
-            \hspace{-30pt}\includegraphics[width=.9\textwidth]{output_14_0}
-            \caption{单位根的分布.\label{fig:5}}
+            \hspace{-30pt}\includegraphics[width=.9\textwidth]{acf1}
+            \caption{差分序列的$ACF$图.\label{fig:acf1}}
         \end{figure}
     \end{minipage}
     \begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
-            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_16_1}
-            \caption{模型残差的分布.\label{fig:6}}
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{pacf1}
+            \caption{差分序列的$PACF$图.\label{fig:pacf1}}
         \end{figure}
     \end{minipage}
 \end{center}
+\qquad 结合$ACF$和$PACF$图判断选择模型即可，为了排除偏差, 使用$P=1,P=2$都进行了实验，得到的AIC信息准则结果如表 \ref{tab:my-table2}. 
 
-\qquad 对时间序列作ACF检验及单位根检验, 结果得到ACF图中自相关系数很快衰减为0, 并且单位根检验中特征方程的根均落在单位圆内, 二者皆表明了一阶差分后的时间序列是平稳的.  
+\ 
+\vspace{-20pt}\begin{table}[htbp]
+    \centering
+    \caption{各种模型的AIC值}
+    \label{tab:my-table2}
+    \begin{tabular}{c|cccccccccccc}
+    \hline
+    p & 4 & 4 & 5 & 5 & 2 & 2 & 3 & 3 & 3 & 3 & 2 & 2 \\
+    d & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+    q & 4 & 4 & 0 & 0 & 3 & 3 & 4 & 4 & 5 & 5 & 6 & 6 \\
+    P & 1 & 2 & 1 & 2 & 1 & 2 & 1 & 2 & 1 & 2 & 1 & 2 \\
+    D & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    Q & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+    AIC值($13000+$) & 502 & 497 & 506 & 504 & 512 & 515 & 498 & 494 & 481 & 483 & 494 & 511 \\ \hline
+    \end{tabular}
+\end{table}
 
-\qquad 通过残差的$ACF$图(图 \ref{fig:6}), 可以看出, 尽管残差的稳定性和正态性都比较好, 但模型仍不是十分理想. 接下来使用此模型对于未来的走势进行预测, 预测结果如图 \ref{fig:7}.
+比较$AIC$后, 选择最小的$ARIMA(3,1,5)(1,0,0)[5]$进行建模. 
+\subsection{模型建立}
+\qquad 使用上文的$ARIMA(3,1,5)(1,0,0)[5]$进行建模, 得到的模型为
+\[
+    \textcolor{red}{\left(Y_t+0.1151 Y_{t-1}+ 0.0337Y_{t-2}-0.0943 Y_{t-3}\right)\left(Y_t+0.0708Y_{t-1}-0.0625Y_{t-2}\right)=\varepsilon_t,\ \varepsilon_t\sim N(0,1).}
+\]
+并且画出模型的单位根的分布, 如图 \ref{fig:m1r}.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.85\textwidth]{m1}
+    \caption{模型的单位根分布. \label{fig:m1r}}
+\end{figure}
+
+同时, 画出残差的分布, 如图 \ref{fig:m1res1}.
+\begin{center}
+    \hspace{-10pt}\includegraphics[width=.8\textwidth]{m1res1}
+\end{center}
+\begin{figure}[htbp]
+    \centering
+    \caption{残差的分布. \label{fig:m1res1}}
+\end{figure}
+
+\qquad 可以看到, 单位根都在单位圆内, 同时, 对与残差进行Ljung-Box检验, 结果如下
+\begin{center}
+    Q* = 36.489, df = 3, p-value = 5.902e-08.
+\end{center}
+$p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图可以看出模型仍不是十分理想. 接下来使用此模型对于未来的走势进行预测, 预测结果如图 \ref{fig:7}.
 \begin{figure}
     \centering
-    \includegraphics[width=.4\textwidth]{output_18_0}
-    \caption{初步模型预测结果. \label{fig:7}}
+    \includegraphics[width=.8\textwidth]{f}
+    \caption{模型预测结果. \label{fig:7}}
 \end{figure}
+
+
+
+
+
+
+
 \section{剔除季节因素}
-\qquad 价格可能会受到季节性的影响, 并且数据为股票市场, 因此可以合理地假设这个周期现象为周模式, 因为一周有五个工作日, 故先对于价格差分序列拟合一个纯季节模型. 得到的模型$b_t$如下
+\subsection{拟合纯季节模型}
+\qquad 价格可能会受到季节性的影响, 并且数据为股票市场, 因此可以合理地假设这个周期现象为周模式, 因为一周有五个工作日, 故先对于价格差分序列拟合一个纯季节模型. 其中, 先计算了$P=1,2,3$时的$AIC$, 如表 \ref{tab:my-table3}. 
+\begin{table}[htbp]
+    \centering
+    \caption{纯季节模型的$AIC$.}
+    \label{tab:my-table3}
+    \begin{tabular}{c|ccc}
+    \hline
+    P   & 1        & 2        & 3        \\ \hline
+    AIC & 13588.65 & 13580.55 & 13579.58 \\ \hline
+    \end{tabular}
+\end{table}
+
+由此, 选择$P=3$, 得到的模型$b_t$如下
 \[
-    b_t=(1+0.0817L^5-0.0667L^{10})Y_t.  
+    \textcolor{red}{b_t=(1+0.0817L^5-0.0667L^{10})Y_t.  }
 \]
-同样, 画出它的单位根的分布与残差的图像
+同样, 画出它的单位根的分布与残差的图像, 如图 \ref{fig:8} \ref{fig:9}.
 \begin{center}
     \hspace{30pt}\begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
-            \hspace{-30pt}\includegraphics[width=.9\textwidth]{output_23_0}
+            \hspace{-30pt}\includegraphics[width=.9\textwidth]{m2}
             \caption{单位根的分布.\label{fig:8}}
         \end{figure}
     \end{minipage}
     \begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
-            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_25_1}
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{m21}
             \caption{模型残差的分布.\label{fig:9}}
         \end{figure}
     \end{minipage}
 \end{center}
     
-\qquad 同样的, 可以看到单位根均在单位圆之内, 因此是平稳的. 但从$ACF$序列中也可以看出纯季节性的模型并不理想. 使用此模型进行预测结果如图 \ref{fig:10}.
-\begin{figure}
-    \centering
-    \includegraphics[width=.4\textwidth]{output_27_0}
-    \caption{纯季节模型预测结果.\label{fig:10}}
-\end{figure}
+\qquad 可以看到单位根均在单位圆之内, 因此是平稳的. 但从$ACF$序列中也可以看出纯季节性的模型并不理想. 
+\subsection{剔除季节性影响}
+
+
+
+
+
+\textcolor{red}{好了刚到这,下面的改天再整}
+
+
 
 \qquad 之后, 对于$Y_t$, 结合春季节性模型进行调整
 \[
