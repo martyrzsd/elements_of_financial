@@ -477,17 +477,17 @@
 \section{原始数据分析}
 \qquad 首先, 画出$S\&P500$的走势图, 如图 \ref{fig:1}.
 \begin{center}
-    \hspace{30pt}\begin{minipage}{0.45\textwidth}
+    \hspace{30pt}\begin{minipage}{0.35\textwidth}
         \begin{figure}
             \centering
-            \hspace{-30pt}\includegraphics[width=.9\textwidth]{output_3_0}
+            \hspace{-30pt}\includegraphics[width=0.95\textwidth]{output_3_0}
             \caption{08年后S\&P500的指数走势.\label{fig:1}}
         \end{figure}
     \end{minipage}
-    \begin{minipage}{0.45\textwidth}
+    \begin{minipage}{0.35\textwidth}
         \begin{figure}
             \centering
-            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_4_0}
+            \hspace{-25pt}\includegraphics[width=0.95\textwidth]{output_4_0}
             \caption{S\&P500指数差分序列的图示.\label{fig:2}}
         \end{figure}
     \end{minipage}
@@ -504,17 +504,17 @@
 \subsection{定阶}
 \qquad 之后需要确定ARIMA模型的阶数, 首先作出ACF和PACF图, 如图 \ref{fig:3} \ref{fig:4} 所示, 虚线表示的是两倍标准误差的上下界. 
 \begin{center}
-    \hspace{30pt}\begin{minipage}{0.45\textwidth}
+    \hspace{30pt}\begin{minipage}{0.35\textwidth}
         \begin{figure}
             \centering
-            \hspace{-30pt}\includegraphics[width=.9\textwidth]{output_8_0}
+            \hspace{-30pt}\includegraphics[width=.95\textwidth]{output_8_0}
             \caption{差分序列的$ACF$图.\label{fig:3}}
         \end{figure}
     \end{minipage}
-    \begin{minipage}{0.45\textwidth}
+    \begin{minipage}{0.35\textwidth}
         \begin{figure}
             \centering
-            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_9_0}
+            \hspace{-25pt}\includegraphics[width=.95\textwidth]{output_9_0}
             \caption{差分序列的$PACF$图.\label{fig:4}}
         \end{figure}
     \end{minipage}
@@ -565,22 +565,20 @@
     \hspace{30pt}\begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
-            \hspace{-30pt}\includegraphics[width=.9\textwidth]{acf1}
+            \hspace{-30pt}\includegraphics[width=.95\textwidth]{acf1}
             \caption{差分序列的$ACF$图.\label{fig:acf1}}
         \end{figure}
     \end{minipage}
     \begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
-            \hspace{-25pt}\includegraphics[width=.9\textwidth]{pacf1}
+            \hspace{-25pt}\includegraphics[width=.95\textwidth]{pacf1}
             \caption{差分序列的$PACF$图.\label{fig:pacf1}}
         \end{figure}
     \end{minipage}
 \end{center}
 \qquad 结合$ACF$和$PACF$图判断选择模型即可，为了排除偏差, 使用$P=1,P=2$都进行了实验，得到的AIC信息准则结果如表 \ref{tab:my-table2}. 
-
-\ 
-\vspace{-20pt}\begin{table}[htbp]
+\begin{table}[htbp]
     \centering
     \caption{各种模型的AIC值}
     \label{tab:my-table2}
@@ -610,6 +608,7 @@
 \end{figure}
 
 同时, 画出残差的分布, 如图 \ref{fig:m1res1}.
+
 \begin{center}
     \hspace{-10pt}\includegraphics[width=.8\textwidth]{m1res1}
 \end{center}
@@ -625,7 +624,7 @@
 $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图可以看出模型仍不是十分理想. 接下来使用此模型对于未来的走势进行预测, 预测结果如图 \ref{fig:7}.
 \begin{figure}
     \centering
-    \includegraphics[width=.8\textwidth]{f}
+    \includegraphics[width=.82\textwidth]{f}
     \caption{模型预测结果. \label{fig:7}}
 \end{figure}
 
@@ -651,7 +650,7 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 
 由此, 选择$P=3$, 得到的模型$b_t$如下
 \[
-    \textcolor{red}{b_t=(1+0.0817L^5-0.0667L^{10})Y_t.  }
+    b_t=(1+0.0790L^5-0.0651L^{10}+0.0373L^{15})Y_t.  
 \]
 同样, 画出它的单位根的分布与残差的图像, 如图 \ref{fig:8} \ref{fig:9}.
 \begin{center}
@@ -678,35 +677,34 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 
 
 
-\textcolor{red}{好了刚到这,下面的改天再整}
 
 
 
 \qquad 之后, 对于$Y_t$, 结合春季节性模型进行调整
 \[
-    Y_t^*=Y_t+0.0817Y_{t-5}+0.0667Y_{t-10}, t=11,12,13,\cdots,3071.
+    Y_t^*=Y_t+0.0790Y_{t-5}-0.0651Y_{t-10}+0.0373L_{t-15}, t=16,17,\cdots,3071.
 \]
 
-首先对调整后的自相关与偏自相关序列做分析, 画出其图像如图 \ref{fig:11} \ref{fig:12}. 
+首先对调整后的序列做分析, 画出其自相关与偏自相关图像如图 \ref{fig:11} \ref{fig:12}. 
 
 \begin{center}
     \hspace{30pt}\begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
-            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_30_0}
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{acf2}
             \caption{调整后的差分序列$ACF$图.\label{fig:11}}
         \end{figure}
     \end{minipage}
     \begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
-            \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_30_1}
+            \hspace{-25pt}\includegraphics[width=.9\textwidth]{pacf2}
             \caption{调整后的差分序列$PACF$图.\label{fig:12}}
         \end{figure}
     \end{minipage}
 \end{center}
 
-\qquad 可以看出, 相比于原来的$ACF$与$PACF$图像, 调整后的价格在5,10阶上已有大大的下降, 因此, 可以说我们对于季节性的影响或多或少的剔除了一点. 
+\qquad 可以看出, 相比于原来的$ACF$与$PACF$图像, 调整后的价格在5,10阶上已有大大的下降, 因此, 可以说我们较为成功地剔除了季节性的影响. 
 \section{结合GARCH模型}
 \qquad GARCH模型允许波动率随着时间进行变化, 并且允许波动率的聚集. 即在随机项$\epsilon_t$前的系数并非像ARMA一样为一个常数, 而是一个与时间相关的函数$\sigma_t$. 因此, 我们需要对这个函数进行建模. GARCH对这个系数的建模是十分类似于ARMA模型对于价格的建模的. 如果对数收益表示为$r_t=\mu_t+a_t=\mu_t+\sigma_t\epsilon_t$, 那么GARCH(1,1)则为
 \begin{equation*}
@@ -719,14 +717,14 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 
 \subsection{使用GARCH初次建模}
 \qquad 首先使用ARMA(3,0)+GARCH(1,1)对于调整后的价格序列进行建模. 拟合的模型为
+\textcolor{red}{
 \begin{equation*}\begin{aligned}
     Y_{t}^{*} &=-0.0428 Y_{t-1}^{*}-0.0062 Y_{t-2}^{*}-0.0104 Y_{t-3}^{*}+a_{t}, \quad a_{t}=\sigma_{t} \varepsilon_{t}, \quad \varepsilon_{t} \sim N(0,1) \\
     \sigma_{t}^{2} &=0.1035+ 0.1449 a_{t-1}^{2}+0.8288 \sigma_{t-1}^{2}
-\end{aligned}\end{equation*}
+\end{aligned}\end{equation*}}
+同时还发现$ARMA$的第一个系数比较显著. 
 
-同时, 还发现$ARMA$的第一个系数比较显著. 
-
-\qquad 为了进一步的改进模型, 我们使用残差的相关图像对模型进行了可视化. 结果如图 \ref{fig:13} \ref{fig:14}.
+\qquad 为了进一步的改进模型, 使用残差的相关图像对模型进行了可视化. 结果如图 \ref{fig:13} \ref{fig:14}.
 \begin{center}
     \hspace{30pt}\begin{minipage}{0.45\textwidth}
         \begin{figure}
@@ -748,11 +746,13 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 
 \subsection{新息分布更换}
 \qquad 改进的模型与上一个模型基本相同, 但是考虑了不同的新息分布. 采用了t分布作为新的新息分布. 模型如下
+\textcolor{red}{
 \begin{equation*}\begin{aligned}
     Y_{t}^{*} &=-0.0395 Y_{t-1}^{*}-0.0047 Y_{t-2}^{*}-0.0035 Y_{t-3}^{*}+a_{t}, \quad a_{t}=\sigma_{t} \varepsilon_{t}, \quad \varepsilon_{t} \sim N(0,1) \\
     \sigma_{t}^{2} &=0.0739+ 0.1349 a_{t-1}^{2}+0.8516 \sigma_{t-1}^{2}
-\end{aligned}\end{equation*}
-\qquad 从结果可以看到, 依旧只有$ARMA$的第一个系数比较显著, 同时, 并且我们对新息的假设也通过了$L-B$检验. 同样的, 我们对于残差的分布进行可视化. 如图 \ref{fig:15} \ref{fig:16}.
+\end{aligned}\end{equation*}}
+
+\qquad 从结果可以看到, 依旧只有$ARMA$的第一个系数比较显著, 同时, 对新息的假设也通过了$L-B$检验. 同样的, 我们对于残差的分布进行可视化. 如图 \ref{fig:15} \ref{fig:16}.
 
 \begin{center}
     \hspace{30pt}\begin{minipage}{0.45\textwidth}
@@ -774,13 +774,14 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 \qquad 从图中可以发现, 此时模型的效果反而变差了. 标准化残差的分布依旧左偏, 并且左偏得更加严重. 因此, 需要更新对于新息分布的假设. 自然而然的就考虑了能够处理这样情况的偏t分布.
 
 \subsection{缩减$ARMA$的系数个数}
-\qquad 由于前两次的模型除了$ARMA$的第一个系数以外, 其他系数都没有任何的统计显著性. 因此, 考虑将模型更换到$ARMA(1,0)+GARCH(1,1)$. 并且采用偏t分布作为新息分布. 拟合的模型如下
+\qquad 由于前两次的模型除了$MA$的第五个系数并不显著性. 因此, 考虑将模型更换到$ARMA(3,4)+GARCH(1,1)$. 并且采用偏t分布作为新息分布. 拟合的模型如下
+\textcolor{red}{
 \begin{equation*}\begin{aligned}
     Y_{t}^{*} &=-0.0631 Y_{t-1}^{*}+a_{t}, \quad a_{t}=\sigma_{t} \varepsilon_{t}, \quad \varepsilon_{t} \sim N(0,1) \\
     \sigma_{t}^{2} &=0.0729+ 0.1329 a_{t-1}^{2}+ 0.8554 \sigma_{t-1}^{2}
-\end{aligned}\end{equation*}
+\end{aligned}\end{equation*}}
 
-\qquad 在这个模型中, $ARMA$的第一个系数的显著性依旧十分的高. 残差的分布可视化如图 \ref{fig:17} \ref{fig:18}.
+\qquad 在这个模型中, $ARMA$的七个系数的显著性全部十分的高. 残差的分布可视化如图 \ref{fig:17} \ref{fig:18}.
 \begin{center}
     \hspace{30pt}\begin{minipage}{0.45\textwidth}
         \begin{figure}
@@ -800,26 +801,16 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 
 \qquad 可以看到, 绝大部分点在该图中都表现出了一条直线的特征. 故可以认为偏t分布的假设对于新息而言是十分合理的, 虽然还是有轻微的左偏性.
 
-\qquad 接下来, 对超前五步的数值进行预测, 结果如下
+\qquad 接下来, 对超前两步的数值进行预测, 结果如下
 
 \begin{center}
-    \begin{tabular}{lllll}
+    \begin{tabular}{ccccc}
  meanForecast & meanError & standardDeviation & lowerInterval & upperInterval\\
 \hline
-	 -1.430017e-01 & 12.28936 & 12.28936 & -26.62170 & 22.24396\\
-	  9.020667e-03 & 12.24464 & 12.22007 & -26.37331 & 22.31450\\
-	 -5.690311e-04 & 12.17573 & 12.15121 & -26.23443 & 22.17939\\
-	  3.589496e-05 & 12.10715 & 12.08276 & -26.08606 & 22.05506\\
-	 -2.264284e-06 & 12.03899 & 12.01474 & -25.93924 & 21.93086\\
+-2.932209 & 12.40724 & 12.40724  & -29.91137 & 19.32762\\                       
+1.069844 & 12.36999 & 12.34532 & -25.82832 & 23.26285\\
 \end{tabular}
 \end{center}
-
-将其图示化, 如图 \ref{fig:19}. 
-\begin{figure}
-    \centering
-    \hspace{-30pt}\includegraphics[width=.46\textwidth]{output_55_1}
-    \caption{带置信区间的预测结果.\label{fig:19}}
-\end{figure}
 
 \qquad 可以看到, 模型预测的$95\%$置信区间基本上处于调整后差分序列两个极值附近. 因为采用的是偏t分布, 所以区间并未呈现对称性. 反而是差分为正的置信区间更短, 意味着估计的确定性更高, 也就意味着我们对于未来的市场应该保持一个比较积极乐观的态度. 
 \section{指数模型}
@@ -830,7 +821,7 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 \qquad R中的ets()函数有自动选取对原始数据拟合优度最高的模型的功能, 因此, 我们使用拟合优度最高的方式, 获得如图 \ref{fig:20} 所示的结果.
 \begin{figure}
     \centering
-    \hspace{-30pt}\includegraphics[width=.46\textwidth]{output_60_0}
+    \hspace{-30pt}\includegraphics[width=.8\textwidth]{output_60_0}
     \caption{指数模型的结果.\label{fig:20}}
 \end{figure}
 \qquad 由于ets()的预测frequency的最大选择为24, 所以原数据直接采用了每月的S\&P500指数. 可以看到, 最终结果为$ETS(M,N,N), \alpha=0.99$, 即代表了单指数相乘模型. 而$\alpha$参数控制权重下降的速度, $\alpha$越接近1, 近期观测值的权重越大; 反之, 越接近于0, 则历史观测值的权重越大. 也就是
@@ -839,7 +830,7 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 \qquad 单指数平滑根据现有的时序值的加权平均对未来做短期预测, 图 \ref{fig:21} 给出了其折线图和以下八个季度的预测. 
 \begin{figure}
     \centering
-    \hspace{-30pt}\includegraphics[width=.46\textwidth]{output_62_0}
+    \hspace{-30pt}\includegraphics[width=.8\textwidth]{output_62_0}
     \caption{\footnotesize 可乘的单指数光滑预测, 其中预测值由虚线表示, $80\%$和$95\%$置信区间分别由淡灰色和深灰色表示.\label{fig:21}}
 \end{figure}
 
@@ -848,7 +839,7 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 \ 
 
 \begin{center}
-\begin{tabular}{r|lllllll}
+\begin{tabular}{r|ccccccc}
   & ME & RMSE & MAE & MPE & MAPE & MASE & ACF1\\
 \hline
 	Training set & 0.7217255 & 8.607849 & 5.926743 & 0.2795169 & 3.445388 & 0.2628449 & 0.0787231\\
@@ -914,329 +905,400 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{1}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{library}\PY{p}{(}\PY{n}{fGARCH}\PY{p}{)}
-\PY{n+nf}{library}\PY{p}{(}\PY{n}{ggplot2}\PY{p}{)}
-\PY{n+nf}{library}\PY{p}{(}\PY{n}{forecast}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} 加载所要用到的包}
+\PY{n+nf}{library}\PY{p}{(}\PY{n}{fGarch}\PY{p}{)}
 \PY{n+nf}{library}\PY{p}{(}\PY{n}{tseries}\PY{p}{)}
+\PY{n+nf}{library}\PY{p}{(}\PY{n}{TSA}\PY{p}{)}
+\PY{n+nf}{library}\PY{p}{(}\PY{n}{forecast}\PY{p}{)}
 \PY{n+nf}{library}\PY{p}{(}\PY{n}{scales}\PY{p}{)}
 \PY{n+nf}{library}\PY{p}{(}\PY{n}{plyr}\PY{p}{)}
 \PY{n+nf}{library}\PY{p}{(}\PY{n}{TTR}\PY{p}{)}
-\PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{2020}\PY{p}{)}
-\PY{n}{daily\PYZus{}2008} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{./Data/SP500/08年每日.csv\PYZdq{}}\PY{p}{)}
-\PY{n}{SPY} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{ts}\PY{p}{(}\PY{n}{daily\PYZus{}2008}\PY{o}{\PYZdl{}}收盘\PY{p}{,} \PY{n}{frequency} \PY{o}{=} \PY{l+m}{251}\PY{p}{,} \PY{n}{start} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2008}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{)}
-\PY{n}{Diffrence\PYZus{}of\PYZus{}SPY} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{ts}\PY{p}{(}\PY{n+nf}{diff}\PY{p}{(}\PY{n}{SPY}\PY{p}{)}\PY{p}{,} \PY{n}{frequency} \PY{o}{=} \PY{l+m}{251}\PY{p}{,} \PY{n}{start} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2008}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{)}
-\PY{n+nf}{plot}\PY{p}{(}\PY{n}{SPY}\PY{p}{)}
-\PY{n+nf}{plot}\PY{p}{(}\PY{n}{Diffrence\PYZus{}of\PYZus{}SPY}\PY{p}{)}
-\PY{n}{cprice} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{diff}\PY{p}{(}\PY{n}{daily\PYZus{}2008}\PY{o}{\PYZdl{}}收盘\PY{p}{)}
-\PY{n+nf}{acf}\PY{p}{(}\PY{n}{cprice}\PY{p}{)}
-\PY{n+nf}{pacf}\PY{p}{(}\PY{n}{cprice}\PY{p}{)}
-\PY{n}{m2} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{arima}\PY{p}{(}\PY{n}{cprice}\PY{p}{,} \PY{n}{order} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{)}\PY{p}{,} 
-            \PY{n}{seasonal} \PY{o}{=} \PY{n+nf}{list}\PY{p}{(}\PY{n}{order} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{)}\PY{p}{,} \PY{n}{period} \PY{o}{=} \PY{l+m}{5}\PY{p}{)}\PY{p}{,} \PY{n}{include.mean} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)}
-\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m2}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
-\begin{Verbatim}[commandchars=\\\{\}]
-Call:
-arima(x = cprice, order = c(3, 0, 0), seasonal = list(order = c(2, 0, 0), period
-= 5),
-    include.mean = F)
-
-Coefficients:
-          ar1      ar2     ar3     sar1    sar2
-      -0.1151  -0.0337  0.0943  -0.0708  0.0625
-s.e.   0.0180   0.0186  0.0182   0.0186  0.0192
-
-sigma\^{}2 estimated as 4.69:  log likelihood = -6752.41,  aic = 13516.81
-
-Training set error measures:
-                    ME     RMSE      MAE MPE MAPE      MASE         ACF1
-Training set 0.0347671 2.165543 1.344143 NaN  Inf 0.6757011 -0.001454335
-    \end{Verbatim}
-
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{2}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m2}\PY{p}{)}
-\PY{n+nf}{checkresiduals}\PY{p}{(}\PY{n}{m2}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} 对原始数据进行分析}
+\PY{n}{Price} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{./08年每日.csv\PYZdq{}}\PY{p}{)}\PY{o}{\PYZdl{}}收盘
+\PY{n}{ts} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{ts}\PY{p}{(}\PY{n}{Price}\PY{p}{,} \PY{n}{start} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2008}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{,} \PY{n}{frequency} \PY{o}{=} \PY{l+m}{251}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{ts}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
-\begin{Verbatim}[commandchars=\\\{\}]
-        Ljung-Box test
-
-data:  Residuals from ARIMA(3,0,0)(2,0,0)[5] with zero mean
-Q* = 7.5057, df = 5, p-value = 0.1857
-
-Model df: 5.   Total lags used: 10
-
-\end{Verbatim}
-\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{3}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{plot}\PY{p}{(}\PY{n+nf}{forecast}\PY{p}{(}\PY{n}{m2}\PY{p}{,}\PY{n}{h}\PY{o}{=}\PY{l+m}{10}\PY{p}{)}\PY{p}{,}\PY{n}{xlim}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{3000}\PY{p}{,}\PY{l+m}{3090}\PY{p}{)}\PY{p}{)}
-\PY{n}{m3} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{arima}\PY{p}{(}\PY{n}{cprice}\PY{p}{,} \PY{n}{seasonal} \PY{o}{=} \PY{n+nf}{list}\PY{p}{(}\PY{n}{order} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{)}\PY{p}{,} \PY{n}{period} \PY{o}{=} \PY{l+m}{5}\PY{p}{)}\PY{p}{,} \PY{n}{include.mean} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)}
-\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m3}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} 对差分序列进行分析}
+\PY{n}{dPricets} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{diff}\PY{p}{(}\PY{n}{Price}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{dPricets}\PY{p}{)}
+\PY{n+nf}{adf.test}\PY{p}{(}\PY{n}{dPricets}\PY{p}{)}
+\PY{n+nf}{acf}\PY{p}{(}\PY{n}{dPricets}\PY{p}{)}
+\PY{n+nf}{pacf}\PY{p}{(}\PY{n}{dPricets}\PY{p}{)}
+\PY{n+nf}{eacf}\PY{p}{(}\PY{n}{dPricets}\PY{p}{)}
+\PY{n}{res} \PY{o}{=} \PY{n+nf}{armasubsets}\PY{p}{(}\PY{n}{y} \PY{o}{=} \PY{n}{dPricets}\PY{p}{,} \PY{n}{nar} \PY{o}{=} \PY{l+m}{10}\PY{p}{,} \PY{n}{nma} \PY{o}{=} \PY{l+m}{10}\PY{p}{,} \PY{n}{y.name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{,} \PY{n}{ar.method} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{ols\PYZdq{}}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{res}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
-\begin{Verbatim}[commandchars=\\\{\}]
-Call:
-arima(x = cprice, seasonal = list(order = c(2, 0, 0), period = 5), include.mean
-= F)
+    \begin{verbatim}
 
-Coefficients:
-         sar1    sar2
-      -0.0817  0.0667
-s.e.   0.0183  0.0191
+	Augmented Dickey-Fuller Test
 
-sigma\^{}2 estimated as 4.801:  log likelihood = -6788.66,  aic = 13583.32
+data:  dPricets
+Dickey-Fuller = -14.196, Lag order = 14, p-value = 0.01
+alternative hypothesis: stationary
 
-Training set error measures:
-                     ME     RMSE      MAE MPE MAPE      MASE       ACF1
-Training set 0.03290312 2.191185 1.340943 NaN  Inf 0.6740924 -0.1135116
-    \end{Verbatim}
-
-\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+    \end{verbatim}
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{4}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m3}\PY{p}{)}
-\PY{n+nf}{checkresiduals}\PY{p}{(}\PY{n}{m3}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} 对季节差分序列进行分析}
+\PY{n}{seasonprice} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{diff}\PY{p}{(}\PY{n}{Price}\PY{p}{,} \PY{l+m}{5}\PY{p}{)}
+\PY{n+nf}{acf}\PY{p}{(}\PY{n}{seasonprice}\PY{p}{)}
+\PY{n+nf}{pacf}\PY{p}{(}\PY{n}{seasonprice}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
-\begin{Verbatim}[commandchars=\\\{\}]
-        Ljung-Box test
-
-data:  Residuals from ARIMA(0,0,0)(2,0,0)[5] with zero mean
-Q* = 83.375, df = 8, p-value = 1.021e-14
-
-Model df: 2.   Total lags used: 10
-
-    \end{Verbatim}
-\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{5}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{plot}\PY{p}{(}\PY{n+nf}{forecast}\PY{p}{(}\PY{n}{m3}\PY{p}{,}\PY{n}{h}\PY{o}{=}\PY{l+m}{10}\PY{p}{)}\PY{p}{,}\PY{n}{xlim}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{3000}\PY{p}{,}\PY{l+m}{3090}\PY{p}{)}\PY{p}{)}
-\PY{n}{adjcp} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{cprice}\PY{n}{[11}\PY{o}{:}\PY{l+m}{3081}\PY{n}{]} \PY{o}{+} \PY{l+m}{0.0817} \PY{o}{*} \PY{n}{cprice}\PY{n}{[6}\PY{o}{:}\PY{l+m}{3076}\PY{n}{]} \PY{o}{\PYZhy{}} \PY{l+m}{0.0667} \PY{o}{*} \PY{n}{cprice}\PY{n}{[1}\PY{o}{:}\PY{l+m}{3071}\PY{n}{]}
-\PY{n+nf}{par}\PY{p}{(}\PY{n}{mfrow} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{)}
-\PY{n+nf}{acf}\PY{p}{(}\PY{n}{adjcp}\PY{p}{)}
-\PY{n+nf}{pacf}\PY{p}{(}\PY{n}{adjcp}\PY{p}{)}
-\PY{n}{m4} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{GARCHFit}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n+nf}{arma}\PY{p}{(}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{0}\PY{p}{)} \PY{o}{+} \PY{n+nf}{GARCH}\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{,} 
-               \PY{n}{data} \PY{o}{=} \PY{n}{adjcp}\PY{p}{,} \PY{n}{trace} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} \PY{n}{include.mean} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)}
-\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m4}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} 构建首个模型并画出图像}
+\PY{n}{m1} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{Arima}\PY{p}{(}\PY{n}{Price}\PY{p}{,} \PY{n}{order} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{1}\PY{p}{,} \PY{l+m}{5}\PY{p}{)}\PY{p}{,} \PY{n}{seasonal} \PY{o}{=} \PY{n+nf}{list}\PY{p}{(}\PY{n}{order} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{)}\PY{p}{,} \PY{n}{period} \PY{o}{=} \PY{l+m}{5}\PY{p}{)}\PY{p}{)}
+\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m1}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m1}\PY{p}{)}
+\PY{n+nf}{checkresiduals}\PY{p}{(}\PY{n}{m1}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n+nf}{forecast}\PY{p}{(}\PY{n}{m1}\PY{p}{,} \PY{n}{h} \PY{o}{=} \PY{l+m}{100}\PY{p}{)}\PY{p}{)}
+\PY{n}{pre} \PY{o}{=} \PY{n+nf}{forecast}\PY{p}{(}\PY{n}{m1}\PY{p}{,} \PY{l+m}{100}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m1}\PY{o}{\PYZdl{}}\PY{n}{fitted}\PY{p}{)}
+\PY{n+nf}{par}\PY{p}{(}\PY{n}{new} \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{pre}\PY{p}{,} \PY{n}{col} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{green\PYZdq{}}\PY{p}{,} \PY{n}{xlim} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,} \PY{l+m}{3080}\PY{p}{)}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m1}\PY{o}{\PYZdl{}}\PY{n}{fitted}\PY{p}{,} \PY{n}{xlim} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1500}\PY{p}{,} \PY{l+m}{1550}\PY{p}{)}\PY{p}{,} \PY{n}{ylim} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{170}\PY{p}{,} \PY{l+m}{190}\PY{p}{)}\PY{p}{)}
+\PY{n+nf}{par}\PY{p}{(}\PY{n}{new} \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{pre}\PY{p}{,} \PY{n}{col} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{green\PYZdq{}}\PY{p}{,} \PY{n}{xlim} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1500}\PY{p}{,} \PY{l+m}{1550}\PY{p}{)}\PY{p}{,} \PY{n}{ylim} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{170}\PY{p}{,} \PY{l+m}{190}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
-\begin{Verbatim}[commandchars=\\\{\}]
-Title:
- GARCH Modelling
 
-Call:
- GARCHFit(formula = \textasciitilde{}arma(3, 0) + GARCH(1, 1), data = adjcp, include.mean = F,
-    trace = F)
+    \begin{Verbatim}[commandchars=\\\{\}]
+Series: Price
+ARIMA(3,1,5)(1,0,0)[5]
 
-Mean and Variance Equation:
- data \textasciitilde{} arma(3, 0) + GARCH(1, 1)
-<environment: 0x0000000020098838>
- [data = adjcp]
+Coefficients:
+          ar1      ar2     ar3      ma1     ma2      ma3      ma4     ma5
+      -0.0248  -0.0474  0.1240  -0.0887  0.0262  -0.0374  -0.0176  0.7409
+s.e.   0.0273   0.0251  0.0253   0.0206  0.0179   0.0182   0.0134  0.0488
+         sar1
+      -0.8014
+s.e.   0.0469
 
-Conditional Distribution:
- norm
+sigma\^{}2 estimated as 4.648:  log likelihood=-6734.43
+AIC=13488.87   AICc=13488.94   BIC=13549.2
 
-Coefficient(s):
-       ar1         ar2         ar3       omega      alpha1       beta1
--0.0428183  -0.0062084  -0.0104306   0.1035492   0.1448658   0.8288358
+Training set error measures:
+                     ME     RMSE      MAE         MPE      MAPE     MASE
+Training set 0.03472924 2.152525 1.345183 0.009393096 0.8098321 1.010023
+                     ACF1
+Training set -0.003542397
+    \end{Verbatim}
+    \begin{Verbatim}[commandchars=\\\{\}]
 
-Std. Errors:
- based on Hessian
+        Ljung-Box test
 
-Error Analysis:
-        Estimate  Std. Error  t value Pr(>|t|)
-ar1    -0.042818    0.019885   -2.153   0.0313 *
-ar2    -0.006208    0.019714   -0.315   0.7528
-ar3    -0.010431    0.019380   -0.538   0.5904
-omega   0.103549    0.016815    6.158 7.36e-10 ***
-alpha1  0.144866    0.013950   10.385  < 2e-16 ***
-beta1   0.828836    0.015207   54.502  < 2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+data:  Residuals from ARIMA(3,1,5)(1,0,0)[5]
+Q* = 36.489, df = 3, p-value = 5.902e-08
 
-Log Likelihood:
- -5785.103    normalized:  -1.883785
-
-Standardised Residuals Tests:
-                                Statistic p-Value
- Jarque-Bera Test   R    Chi\^{}2  897.1599  0
- Shapiro-Wilk Test  R    W      0.9735453 0
- Ljung-Box Test     R    Q(10)  14.04683  0.1708662
- Ljung-Box Test     R    Q(15)  20.6747   0.1475486
- Ljung-Box Test     R    Q(20)  29.32515  0.08155163
- Ljung-Box Test     R\^{}2  Q(10)  16.13787  0.09575306
- Ljung-Box Test     R\^{}2  Q(15)  21.61548  0.1182901
- Ljung-Box Test     R\^{}2  Q(20)  23.78189  0.2520496
- LM Arch Test       R    TR\^{}2   18.69182  0.09624218
-
-Information Criterion Statistics:
-     AIC      BIC      SIC     HQIC
-3.771477 3.783258 3.771470 3.775710
+Model df: 9.   Total lags used: 12
 
     \end{Verbatim}
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{6}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m4}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{1}\PY{p}{)}
-\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m4}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{13}\PY{p}{)}
-\PY{n}{m5} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{GARCHFit}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n+nf}{arma}\PY{p}{(}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{0}\PY{p}{)} \PY{o}{+} \PY{n+nf}{GARCH}\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{,} 
-               \PY{n}{data} \PY{o}{=} \PY{n}{adjcp}\PY{p}{,} \PY{n}{trace} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} \PY{n}{include.mean} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} \PY{n}{cond.dist} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{std\PYZdq{}}\PY{p}{)}
-\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m5}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} 拟合纯季节模型}
+\PY{n}{m2} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{Arima}\PY{p}{(}\PY{n}{dPricets}\PY{p}{,} \PY{n}{seasonal} \PY{o}{=} \PY{n+nf}{list}\PY{p}{(}\PY{n}{order} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{)}\PY{p}{,} \PY{n}{period} \PY{o}{=} \PY{l+m}{5}\PY{p}{)}\PY{p}{,} \PY{n}{include.mean} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)}
+\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m2}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m2}\PY{p}{)}
+\PY{n+nf}{checkresiduals}\PY{p}{(}\PY{n}{m2}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Series: dPricets
+ARIMA(0,0,0)(3,0,0)[5] with zero mean
+
+Coefficients:
+         sar1    sar2     sar3
+      -0.0790  0.0651  -0.0373
+s.e.   0.0184  0.0191   0.0209
+
+sigma\^{}2 estimated as 4.801:  log likelihood=-6787.06
+AIC=13582.12   AICc=13582.14   BIC=13606.26
+
+Training set error measures:
+                     ME     RMSE      MAE MPE MAPE      MASE       ACF1
+Training set 0.03473708 2.190042 1.339692 NaN  Inf 0.6734637 -0.1135568
+    \end{Verbatim}
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        Ljung-Box test
+
+data:  Residuals from ARIMA(0,0,0)(3,0,0)[5] with zero mean
+Q* = 85.257, df = 7, p-value = 1.11e-15
+
+Model df: 3.   Total lags used: 10
+
+    \end{Verbatim}
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} 剔除季节性影响}
+\PY{n}{adjp} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{dPricets}\PY{n}{[16}\PY{o}{:}\PY{l+m}{3081}\PY{n}{]} \PY{o}{+} \PY{l+m}{0.079} \PY{o}{*} \PY{n}{dPricets}\PY{n}{[11}\PY{o}{:}\PY{l+m}{3076}\PY{n}{]} \PY{o}{\PYZhy{}} \PY{l+m}{0.0651} \PY{o}{*} \PY{n}{dPricets}\PY{n}{[6}\PY{o}{:}\PY{l+m}{3071}\PY{n}{]} \PY{o}{+} 
+    \PY{l+m}{0.0373} \PY{o}{*} \PY{n}{dPricets}\PY{n}{[1}\PY{o}{:}\PY{l+m}{3066}\PY{n}{]}
+\PY{n+nf}{acf}\PY{p}{(}\PY{n}{adjp}\PY{p}{)}
+\PY{n+nf}{pacf}\PY{p}{(}\PY{n}{adjp}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} 加入GARCH模型}
+\PY{n}{m3} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{garchFit}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n+nf}{arma}\PY{p}{(}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{5}\PY{p}{)} \PY{o}{+} \PY{n+nf}{garch}\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{adjp}\PY{p}{,} \PY{n}{trace} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} \PY{n}{include.mean} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)}
+\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m3}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m3}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{1}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m3}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{13}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
 Title:
  GARCH Modelling
 
 Call:
- GARCHFit(formula = \textasciitilde{}arma(3, 0) + GARCH(1, 1), data = adjcp, cond.dist = "std",
+ garchFit(formula = \textasciitilde{}arma(3, 5) + garch(1, 1), data = adjp, include.mean = F,
+    trace = F)
+
+Mean and Variance Equation:
+ data \textasciitilde{} arma(3, 5) + garch(1, 1)
+<environment: 0x000000002a7d7f38>
+ [data = adjp]
+
+Conditional Distribution:
+ norm
+
+Coefficient(s):
+       ar1         ar2         ar3         ma1         ma2         ma3
+ 0.2183850   0.2987791  -0.3715975  -0.2618720  -0.2952942   0.3823865
+       ma4         ma5       omega      alpha1       beta1
+-0.0098208   0.0606401   0.1040603   0.1468127   0.8269387
+
+Std. Errors:
+ based on Hessian
+
+Error Analysis:
+        Estimate  Std. Error  t value Pr(>|t|)
+ar1     0.218385    0.218074    1.001   0.3166
+ar2     0.298779    0.180504    1.655   0.0979 .
+ar3    -0.371598    0.174067   -2.135   0.0328 *
+ma1    -0.261872    0.218860   -1.197   0.2315
+ma2    -0.295294    0.181369   -1.628   0.1035
+ma3     0.382387    0.180603    2.117   0.0342 *
+ma4    -0.009821    0.025452   -0.386   0.6996
+ma5     0.060640    0.021181    2.863   0.0042 **
+omega   0.104060    0.017073    6.095 1.09e-09 ***
+alpha1  0.146813    0.014443   10.165  < 2e-16 ***
+beta1   0.826939    0.015739   52.540  < 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Log Likelihood:
+ -5766.344    normalized:  -1.880738
+
+Standardised Residuals Tests:
+                                Statistic p-Value
+ Jarque-Bera Test   R    Chi\^{}2  877.8818  0
+ Shapiro-Wilk Test  R    W      0.9742828 0
+ Ljung-Box Test     R    Q(10)  7.272825  0.6994619
+ Ljung-Box Test     R    Q(15)  10.76221  0.7692618
+ Ljung-Box Test     R    Q(20)  19.26747  0.5045065
+ Ljung-Box Test     R\^{}2  Q(10)  17.54842  0.0630759
+ Ljung-Box Test     R\^{}2  Q(15)  23.29068  0.07816009
+ Ljung-Box Test     R\^{}2  Q(20)  24.74355  0.211419
+ LM Arch Test       R    TR\^{}2   19.65619  0.07387571
+
+Information Criterion Statistics:
+     AIC      BIC      SIC     HQIC
+3.768652 3.790280 3.768627 3.776423
+
+    \end{Verbatim}
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} 更换新息分布}
+\PY{n}{m4} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{garchFit}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n+nf}{arma}\PY{p}{(}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{5}\PY{p}{)} \PY{o}{+} \PY{n+nf}{garch}\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{adjp}\PY{p}{,} \PY{n}{trace} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} \PY{n}{include.mean} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} 
+    \PY{n}{cond.dist} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{std\PYZdq{}}\PY{p}{)}
+\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m4}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m4}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{1}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m4}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{13}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Title:
+ GARCH Modelling
+
+Call:
+ garchFit(formula = \textasciitilde{}arma(3, 5) + garch(1, 1), data = adjp, cond.dist = "std",
     include.mean = F, trace = F)
 
 Mean and Variance Equation:
- data \textasciitilde{} arma(3, 0) + GARCH(1, 1)
-<environment: 0x0000000015033cf8>
- [data = adjcp]
+ data \textasciitilde{} arma(3, 5) + garch(1, 1)
+<environment: 0x00000000277696f8>
+ [data = adjp]
 
 Conditional Distribution:
  std
 
 Coefficient(s):
-       ar1         ar2         ar3       omega      alpha1       beta1
--0.0395068  -0.0046808  -0.0035299   0.0739401   0.1348823   0.8515826
-     shape
- 5.9149506
+       ar1         ar2         ar3         ma1         ma2         ma3
+ 0.6076789  -0.7878460   0.6311511  -0.6460218   0.8145114  -0.6672652
+       ma4         ma5       omega      alpha1       beta1       shape
+ 0.0638112   0.0075509   0.0782826   0.1403160   0.8464154   5.6295839
 
 Std. Errors:
  based on Hessian
 
 Error Analysis:
         Estimate  Std. Error  t value Pr(>|t|)
-ar1    -0.039507    0.018535   -2.132    0.033 *
-ar2    -0.004681    0.018732   -0.250    0.803
-ar3    -0.003530    0.018477   -0.191    0.848
-omega   0.073940    0.017372    4.256 2.08e-05 ***
-alpha1  0.134882    0.016180    8.337  < 2e-16 ***
-beta1   0.851583    0.016356   52.065  < 2e-16 ***
-shape   5.914951    0.652243    9.069  < 2e-16 ***
+ar1     0.607679    0.142061    4.278 1.89e-05 ***
+ar2    -0.787846    0.060724  -12.974  < 2e-16 ***
+ar3     0.631151    0.139193    4.534 5.78e-06 ***
+ma1    -0.646022    0.142938   -4.520 6.20e-06 ***
+ma2     0.814511    0.065073   12.517  < 2e-16 ***
+ma3    -0.667265    0.142763   -4.674 2.95e-06 ***
+ma4     0.063811    0.023718    2.690  0.00714 **
+ma5     0.007551    0.021109    0.358  0.72056
+omega   0.078283    0.018418    4.250 2.13e-05 ***
+alpha1  0.140316    0.017177    8.169 2.22e-16 ***
+beta1   0.846415    0.017253   49.058  < 2e-16 ***
+shape   5.629584    0.611584    9.205  < 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Log Likelihood:
- -5705.55    normalized:  -1.85788
+ -5683.127    normalized:  -1.853597
 
 Standardised Residuals Tests:
                                 Statistic p-Value
- Jarque-Bera Test   R    Chi\^{}2  976.3192  0
- Shapiro-Wilk Test  R    W      0.9727265 0
- Ljung-Box Test     R    Q(10)  13.80983  0.1818439
- Ljung-Box Test     R    Q(15)  20.30748  0.1604519
- Ljung-Box Test     R    Q(20)  28.68535  0.09414238
- Ljung-Box Test     R\^{}2  Q(10)  14.30046  0.1597227
- Ljung-Box Test     R\^{}2  Q(15)  20.81853  0.1427284
- Ljung-Box Test     R\^{}2  Q(20)  23.03286  0.2871838
- LM Arch Test       R    TR\^{}2   17.54599  0.1301872
+ Jarque-Bera Test   R    Chi\^{}2  934.9298  0
+ Shapiro-Wilk Test  R    W      0.9734008 0
+ Ljung-Box Test     R    Q(10)  10.4691   0.4003451
+ Ljung-Box Test     R    Q(15)  11.42327  0.7220529
+ Ljung-Box Test     R    Q(20)  19.36198  0.4984213
+ Ljung-Box Test     R\^{}2  Q(10)  12.04808  0.2818518
+ Ljung-Box Test     R\^{}2  Q(15)  18.77382  0.2241668
+ Ljung-Box Test     R\^{}2  Q(20)  20.53837  0.4247363
+ LM Arch Test       R    TR\^{}2   14.94122  0.2446668
 
 Information Criterion Statistics:
      AIC      BIC      SIC     HQIC
-3.720319 3.734063 3.720308 3.725257
+3.715021 3.738614 3.714990 3.723498
 
     \end{Verbatim}
-
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{7}{\boxspacing}
+\prompt{In}{incolor}{10}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} 缩减系数个数}
+\PY{n}{m5} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{garchFit}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n+nf}{arma}\PY{p}{(}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{4}\PY{p}{)} \PY{o}{+} \PY{n+nf}{garch}\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{adjp}\PY{p}{,} \PY{n}{trace} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} \PY{n}{include.mean} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} 
+    \PY{n}{cond.dist} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{sstd\PYZdq{}}\PY{p}{)}
+\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m5}\PY{p}{)}
 \PY{n+nf}{plot}\PY{p}{(}\PY{n}{m5}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{1}\PY{p}{)}
 \PY{n+nf}{plot}\PY{p}{(}\PY{n}{m5}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{13}\PY{p}{)}
-\PY{n}{m6} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{GARCHFit}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n+nf}{arma}\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{0}\PY{p}{)} \PY{o}{+} \PY{n+nf}{GARCH}\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{,} 
-               \PY{n}{data} \PY{o}{=} \PY{n}{adjcp}\PY{p}{,} \PY{n}{trace} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} \PY{n}{include.mean} \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} \PY{n}{cond.dist} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{sstd\PYZdq{}}\PY{p}{)}
-\PY{n+nf}{summary}\PY{p}{(}\PY{n}{m6}\PY{p}{)}
+\PY{n+nf}{predict}\PY{p}{(}\PY{n}{m5}\PY{p}{,} \PY{n}{n.ahead} \PY{o}{=} \PY{l+m}{2}\PY{p}{,} \PY{n}{plot} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
-\begin{Verbatim}[commandchars=\\\{\}]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
 Title:
  GARCH Modelling
 
 Call:
- GARCHFit(formula = \textasciitilde{}arma(1, 0) + GARCH(1, 1), data = adjcp, cond.dist = "sstd",
+ garchFit(formula = \textasciitilde{}arma(3, 4) + garch(1, 1), data = adjp, cond.dist = "sstd",
     include.mean = F, trace = F)
 
 Mean and Variance Equation:
- data \textasciitilde{} arma(1, 0) + GARCH(1, 1)
-<environment: 0x000000001e801b20>
- [data = adjcp]
+ data \textasciitilde{} arma(3, 4) + garch(1, 1)
+<environment: 0x00000000255ea038>
+ [data = adjp]
 
 Conditional Distribution:
  sstd
 
 Coefficient(s):
-      ar1      omega     alpha1      beta1       skew      shape
--0.063081   0.072857   0.132903   0.855370   0.856473   6.084229
+      ar1        ar2        ar3        ma1        ma2        ma3        ma4
+-1.000000  -1.000000  -0.658369   0.937063   0.890059   0.541669  -0.110916
+    omega     alpha1      beta1       skew      shape
+ 0.072631   0.131563   0.858010   0.838907   5.806889
 
 Std. Errors:
  based on Hessian
 
 Error Analysis:
         Estimate  Std. Error  t value Pr(>|t|)
-ar1     -0.06308     0.01861   -3.390 0.000699 ***
-omega    0.07286     0.01681    4.335 1.46e-05 ***
-alpha1   0.13290     0.01568    8.475  < 2e-16 ***
-beta1    0.85537     0.01565   54.655  < 2e-16 ***
-skew     0.85647     0.01979   43.284  < 2e-16 ***
-shape    6.08423     0.71690    8.487  < 2e-16 ***
+ar1     -1.00000     0.11909   -8.397  < 2e-16 ***
+ar2     -1.00000     0.07114  -14.056  < 2e-16 ***
+ar3     -0.65837     0.11574   -5.688 1.28e-08 ***
+ma1      0.93706     0.11981    7.821 5.33e-15 ***
+ma2      0.89006     0.07455   11.939  < 2e-16 ***
+ma3      0.54167     0.12108    4.473 7.70e-06 ***
+ma4     -0.11092     0.01984   -5.591 2.25e-08 ***
+omega    0.07263     0.01704    4.261 2.03e-05 ***
+alpha1   0.13156     0.01585    8.300  < 2e-16 ***
+beta1    0.85801     0.01578   54.377  < 2e-16 ***
+skew     0.83891     0.02020   41.523  < 2e-16 ***
+shape    5.80689     0.67391    8.617  < 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Log Likelihood:
- -5682.663    normalized:  -1.850428
+ -5656.916    normalized:  -1.845048
 
 Standardised Residuals Tests:
                                 Statistic p-Value
- Jarque-Bera Test   R    Chi\^{}2  980.1835  0
- Shapiro-Wilk Test  R    W      0.9725485 0
- Ljung-Box Test     R    Q(10)  15.80819  0.1052563
- Ljung-Box Test     R    Q(15)  22.69048  0.0909363
- Ljung-Box Test     R    Q(20)  31.27833  0.05162165
- Ljung-Box Test     R\^{}2  Q(10)  15.33821  0.1202093
- Ljung-Box Test     R\^{}2  Q(15)  21.69158  0.1161498
- Ljung-Box Test     R\^{}2  Q(20)  24.03101  0.2410402
- LM Arch Test       R    TR\^{}2   18.63672  0.09768077
+ Jarque-Bera Test   R    Chi\^{}2  1084.698  0
+ Shapiro-Wilk Test  R    W      0.9699741 0
+ Ljung-Box Test     R    Q(10)  16.63696  0.08279324
+ Ljung-Box Test     R    Q(15)  17.12291  0.3115699
+ Ljung-Box Test     R    Q(20)  25.54736  0.1812866
+ Ljung-Box Test     R\^{}2  Q(10)  15.00136  0.1320124
+ Ljung-Box Test     R\^{}2  Q(15)  21.68922  0.1162157
+ Ljung-Box Test     R\^{}2  Q(20)  23.81214  0.2506945
+ LM Arch Test       R    TR\^{}2   18.33108  0.1060013
 
 Information Criterion Statistics:
      AIC      BIC      SIC     HQIC
-3.704763 3.716543 3.704755 3.708995
+3.697923 3.721516 3.697892 3.706400
 
     \end{Verbatim}
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{8}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m6}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{1}\PY{p}{)}
-\PY{n+nf}{plot}\PY{p}{(}\PY{n}{m6}\PY{p}{,} \PY{n}{which} \PY{o}{=} \PY{l+m}{13}\PY{p}{)}
-\PY{n+nf}{predict}\PY{p}{(}\PY{n}{m6}\PY{p}{,} \PY{n}{n.ahead} \PY{o}{=} \PY{l+m}{5}\PY{p}{,} \PY{n}{plot} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-\begin{tabular}{lllll}
+\begin{tabular}{ccccc}
  meanForecast & meanError & standardDeviation & lowerInterval & upperInterval\\
 \hline
-	 -1.430017e-01 & 12.28936 & 12.28936 & -26.62170 & 22.24396\\
-	  9.020667e-03 & 12.24464 & 12.22007 & -26.37331 & 22.31450\\
-	 -5.690311e-04 & 12.17573 & 12.15121 & -26.23443 & 22.17939\\
-	  3.589496e-05 & 12.10715 & 12.08276 & -26.08606 & 22.05506\\
-	 -2.264284e-06 & 12.03899 & 12.01474 & -25.93924 & 21.93086\\
+	 -2.932209 & 12.40724 & 12.40724 & -29.91137 & 19.32762\\
+	  1.069844 & 12.36999 & 12.34532 & -25.82832 & 23.26285\\
 \end{tabular}
-\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{9}{\boxspacing}
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{11}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{monthly\PYZus{}2008} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{./Data/SP500/08年每月.csv\PYZdq{}}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} 指数模型}
+\PY{n}{monthly\PYZus{}2008} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{08年每月.csv\PYZdq{}}\PY{p}{)}
 \PY{n}{Monthly\PYZus{}Price} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{monthly\PYZus{}2008}\PY{o}{\PYZdl{}}收盘
 \PY{n}{Monthly\PYZus{}Pricets} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{ts}\PY{p}{(}\PY{n}{Monthly\PYZus{}Price}\PY{p}{,} \PY{n}{frequency} \PY{o}{=} \PY{l+m}{12}\PY{p}{,} \PY{n}{start} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2008}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{)}
 \PY{n}{fit\PYZus{}ets} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{ets}\PY{p}{(}\PY{n}{Monthly\PYZus{}Pricets}\PY{p}{)}
 \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit\PYZus{}ets}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{fit\PYZus{}ets}\PY{p}{)}
+\PY{n+nf}{plot}\PY{p}{(}\PY{n+nf}{forecast}\PY{p}{(}\PY{n}{fit\PYZus{}ets}\PY{p}{)}\PY{p}{,} \PY{n}{xlab} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Time\PYZdq{}}\PY{p}{,} \PY{n}{flty} \PY{o}{=} \PY{l+m}{2}\PY{p}{)}
+\PY{n+nf}{accuracy}\PY{p}{(}\PY{n}{fit\PYZus{}ets}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
-\begin{Verbatim}[commandchars=\\\{\}]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
 ETS(M,N,N)
 
 Call:
@@ -1257,16 +1319,7 @@ Training set error measures:
                     ME     RMSE      MAE       MPE     MAPE      MASE      ACF1
 Training set 0.7217255 8.607849 5.926743 0.2795169 3.445388 0.2628449 0.0787231
     \end{Verbatim}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{10}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{plot}\PY{p}{(}\PY{n}{fit\PYZus{}ets}\PY{p}{)}
-\PY{n+nf}{plot}\PY{p}{(}\PY{n+nf}{forecast}\PY{p}{(}\PY{n}{fit\PYZus{}ets}\PY{p}{)}\PY{p}{,} \PY{n}{xlab} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Time\PYZdq{}}\PY{p}{,} \PY{n}{flty} \PY{o}{=} \PY{l+m}{2}\PY{p}{)}
-\PY{n+nf}{accuracy}\PY{p}{(}\PY{n}{fit\PYZus{}ets}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-\begin{tabular}{r|lllllll}
+\begin{tabular}{r|ccccccc}
   & ME & RMSE & MAE & MPE & MAPE & MASE & ACF1\\
 \hline
 	Training set & 0.7217255 & 8.607849 & 5.926743 & 0.2795169 & 3.445388 & 0.2628449 & 0.0787231\\
