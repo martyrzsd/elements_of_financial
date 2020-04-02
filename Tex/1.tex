@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[12pt]{article}
 
     \usepackage[breakable]{tcolorbox}
     \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
@@ -477,14 +477,14 @@
 \section{原始数据分析}
 \qquad 首先, 画出$S\&P500$的走势图, 如图 \ref{fig:1}.
 \begin{center}
-    \hspace{30pt}\begin{minipage}{0.35\textwidth}
+    \hspace{30pt}\begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
             \hspace{-30pt}\includegraphics[width=0.95\textwidth]{output_3_0}
             \caption{08年后S\&P500的指数走势.\label{fig:1}}
         \end{figure}
     \end{minipage}
-    \begin{minipage}{0.35\textwidth}
+    \begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
             \hspace{-25pt}\includegraphics[width=0.95\textwidth]{output_4_0}
@@ -504,14 +504,14 @@
 \subsection{定阶}
 \qquad 之后需要确定ARIMA模型的阶数, 首先作出ACF和PACF图, 如图 \ref{fig:3} \ref{fig:4} 所示, 虚线表示的是两倍标准误差的上下界. 
 \begin{center}
-    \hspace{30pt}\begin{minipage}{0.35\textwidth}
+    \hspace{30pt}\begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
             \hspace{-30pt}\includegraphics[width=.95\textwidth]{output_8_0}
             \caption{差分序列的$ACF$图.\label{fig:3}}
         \end{figure}
     \end{minipage}
-    \begin{minipage}{0.35\textwidth}
+    \begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
             \hspace{-25pt}\includegraphics[width=.95\textwidth]{output_9_0}
@@ -554,7 +554,7 @@
 在此准则下各参数的$BIC$如图 \ref{fig:bic} 所示.
 \begin{figure}
     \centering
-    \includegraphics[width=.4\textwidth]{bic}
+    \includegraphics[width=.5\textwidth]{bic}
     \caption{最优子集结果. \label{fig:bic}}
 \end{figure}
 
@@ -562,14 +562,14 @@
 
 \qquad 首先对价格隔五项进行差分, 画出$ACF, PACF$的图像, 如图 \ref{fig:acf1} \ref{fig:pacf1}.
 \begin{center}
-    \hspace{30pt}\begin{minipage}{0.45\textwidth}
+    \begin{minipage}{0.46\textwidth}
         \begin{figure}
             \centering
             \hspace{-30pt}\includegraphics[width=.95\textwidth]{acf1}
             \caption{差分序列的$ACF$图.\label{fig:acf1}}
         \end{figure}
     \end{minipage}
-    \begin{minipage}{0.45\textwidth}
+    \begin{minipage}{0.46\textwidth}
         \begin{figure}
             \centering
             \hspace{-25pt}\includegraphics[width=.95\textwidth]{pacf1}
@@ -598,33 +598,52 @@
 \subsection{模型建立}
 \qquad 使用上文的$ARIMA(3,1,5)(1,0,0)[5]$进行建模, 得到的模型为
 \[
-    \textcolor{red}{\left(Y_t+0.1151 Y_{t-1}+ 0.0337Y_{t-2}-0.0943 Y_{t-3}\right)\left(Y_t+0.0708Y_{t-1}-0.0625Y_{t-2}\right)=\varepsilon_t,\ \varepsilon_t\sim N(0,1).}
+    \begin{aligned}
+        Y_{t}=&-0.0248 Y_{t-1}+-0.0474 Y_{t-2}+ 0.1240 Y_{t-3}+\varepsilon_{t}-0.0887\varepsilon_{t-1}\\&+0.0262\varepsilon_{t-2}-0.0374\varepsilon_{t-3}-0.0176\varepsilon_{t-4}+0.7409\varepsilon_{t-5},\ \varepsilon\sim N(0,1).
+    \end{aligned}
 \]
-并且画出模型的单位根的分布, 如图 \ref{fig:m1r}.
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=.85\textwidth]{m1}
-    \caption{模型的单位根分布. \label{fig:m1r}}
-\end{figure}
 
-同时, 画出残差的分布, 如图 \ref{fig:m1res1}.
-
+并且画出模型的单位根倒数的分布, 如图 \ref{fig:m1r}.
 \begin{center}
-    \hspace{-10pt}\includegraphics[width=.8\textwidth]{m1res1}
+    \includegraphics[width=.6\textwidth]{m1}
 \end{center}
 \begin{figure}[htbp]
     \centering
+    \caption{模型的单位根倒数分布. \label{fig:m1r}}
+\end{figure}
+
+同时, 画出残差的分布, 如图 \ref{fig:m1res1}.
+\begin{figure}[htbp]
+    \centering
+    \hspace{-10pt}\includegraphics[width=.6\textwidth]{m1res1}
     \caption{残差的分布. \label{fig:m1res1}}
 \end{figure}
 
-\qquad 可以看到, 单位根都在单位圆内, 同时, 对与残差进行Ljung-Box检验, 结果如下
+可以看到, 单位根倒数都在单位圆内, 同时, 对与残差进行Ljung-Box检验, 结果如下
 \begin{center}
     Q* = 36.489, df = 3, p-value = 5.902e-08.
 \end{center}
 $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图可以看出模型仍不是十分理想. 接下来使用此模型对于未来的走势进行预测, 预测结果如图 \ref{fig:7}.
+
+\begin{table}[htpb]
+    \centering
+    \label{tab:my-table4}
+    \begin{tabular}{cc}
+    \hline
+    \multicolumn{1}{c}{预测区间}                & \multicolumn{1}{c}{真实值}   \\ \hline
+    \multicolumn{1}{c}{(242.7115,251.1630)} & \multicolumn{1}{c}{261.2} \\
+    (239.8418,251.1361)                     & 253.42                    \\
+    (242.2782,255.7460)                     & 253.42                    \\
+    (237.1975,252.9223)                     & 261.65                    \\
+    (236.4855,254.0554)                     & 257.75                    \\
+    (234.8416,253.8589)                     & 246.15                    \\ \hline
+    \end{tabular}
+    \end{table}
+
+可以看到, 3月26日和3月27日的预测值大幅偏离了置信区间, 原因应该是模型无法预测到美国政府于当天宣布进行无限量QE操作, 而无法预测人为干预也是时间序列预测的一大障碍. 
 \begin{figure}
     \centering
-    \includegraphics[width=.82\textwidth]{f}
+    \includegraphics[width=.7\textwidth]{f}
     \caption{模型预测结果. \label{fig:7}}
 \end{figure}
 
@@ -652,25 +671,25 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 \[
     b_t=(1+0.0790L^5-0.0651L^{10}+0.0373L^{15})Y_t.  
 \]
-同样, 画出它的单位根的分布与残差的图像, 如图 \ref{fig:8} \ref{fig:9}.
+同样, 画出它的单位根倒数的分布与残差的图像, 如图 \ref{fig:8} \ref{fig:9}.
 \begin{center}
-    \hspace{30pt}\begin{minipage}{0.45\textwidth}
+    \begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
-            \hspace{-30pt}\includegraphics[width=.9\textwidth]{m2}
-            \caption{单位根的分布.\label{fig:8}}
+            \hspace{-30pt}\includegraphics[width=.95\textwidth]{m2}
+            \caption{单位根倒数的分布.\label{fig:8}}
         \end{figure}
     \end{minipage}
     \begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
-            \hspace{-25pt}\includegraphics[width=.9\textwidth]{m21}
+            \hspace{-25pt}\includegraphics[width=.95\textwidth]{m21}
             \caption{模型残差的分布.\label{fig:9}}
         \end{figure}
     \end{minipage}
 \end{center}
     
-\qquad 可以看到单位根均在单位圆之内, 因此是平稳的. 但从$ACF$序列中也可以看出纯季节性的模型并不理想. 
+\qquad 可以看到单位根倒数均在单位圆之内, 因此是平稳的. 但从$ACF$序列中也可以看出纯季节性的模型并不理想. 
 \subsection{剔除季节性影响}
 
 
@@ -682,7 +701,7 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 
 \qquad 之后, 对于$Y_t$, 结合春季节性模型进行调整
 \[
-    Y_t^*=Y_t+0.0790Y_{t-5}-0.0651Y_{t-10}+0.0373L_{t-15}, t=16,17,\cdots,3071.
+    Y_t^*=Y_t+0.0790Y_{t-5}-0.0651Y_{t-10}+0.0373L_{t-15}, t=16,17,\cdots,3066.
 \]
 
 首先对调整后的序列做分析, 画出其自相关与偏自相关图像如图 \ref{fig:11} \ref{fig:12}. 
@@ -691,14 +710,14 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
     \hspace{30pt}\begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
-            \hspace{-25pt}\includegraphics[width=.9\textwidth]{acf2}
+            \hspace{-25pt}\includegraphics[width=.95\textwidth]{acf2}
             \caption{调整后的差分序列$ACF$图.\label{fig:11}}
         \end{figure}
     \end{minipage}
     \begin{minipage}{0.45\textwidth}
         \begin{figure}
             \centering
-            \hspace{-25pt}\includegraphics[width=.9\textwidth]{pacf2}
+            \hspace{-25pt}\includegraphics[width=.95\textwidth]{pacf2}
             \caption{调整后的差分序列$PACF$图.\label{fig:12}}
         \end{figure}
     \end{minipage}
@@ -716,24 +735,23 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 \qquad 我们猜想数据会受到多方面的外部因素的扰动, 所以对较长时间的数据分析十分的困难. 从数据分析中, 可以看出我们的差分序列波动的最大程度既是价格上涨与下跌最明显的时候. ARMA模型无法处理这样的波动现象. 于是结合了GARCH模型来解释数据, 提高模型的预测能力. 
 
 \subsection{使用GARCH初次建模}
-\qquad 首先使用ARMA(3,0)+GARCH(1,1)对于调整后的价格序列进行建模. 拟合的模型为
-\textcolor{red}{
-\begin{equation*}\begin{aligned}
-    Y_{t}^{*} &=-0.0428 Y_{t-1}^{*}-0.0062 Y_{t-2}^{*}-0.0104 Y_{t-3}^{*}+a_{t}, \quad a_{t}=\sigma_{t} \varepsilon_{t}, \quad \varepsilon_{t} \sim N(0,1) \\
-    \sigma_{t}^{2} &=0.1035+ 0.1449 a_{t-1}^{2}+0.8288 \sigma_{t-1}^{2}
-\end{aligned}\end{equation*}}
-同时还发现$ARMA$的第一个系数比较显著. 
+\qquad 首先使用ARMA(3,5)+GARCH(1,1)对于调整后的价格序列进行建模. 拟合的模型为
+\[
+    \begin{aligned}
+        Y_{t}^*=&0.2184 Y_{t-1}^*+ 0.2988 Y_{t-2}^*-0.3716 Y_{t-3}^*+\varepsilon_{t}-0.2619\varepsilon_{t-1}-0.2953\varepsilon_{t-2}\\&+0.3823\varepsilon_{t-3}-0.0098\varepsilon_{t-4}+0.0606\varepsilon_{t-5}+a_{t},\\&a_{t}=\sigma_{t} \varepsilon_{t},\ \varepsilon\sim N(0,1).
+        \sigma_{t}^{2} =0.1041+  0.1468 a_{t-1}^{2}+0.8269 \sigma_{t-1}^{2}
+    \end{aligned}
+\]
 
-\qquad 为了进一步的改进模型, 使用残差的相关图像对模型进行了可视化. 结果如图 \ref{fig:13} \ref{fig:14}.
 \begin{center}
-    \hspace{30pt}\begin{minipage}{0.45\textwidth}
+    \hspace{30pt}\begin{minipage}{0.4\textwidth}
         \begin{figure}
             \centering
             \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_36_0}
             \caption{模型所拟合的时间序列.\label{fig:13}}
         \end{figure}
     \end{minipage}
-    \begin{minipage}{0.45\textwidth}
+    \begin{minipage}{0.4\textwidth}
         \begin{figure}
             \centering
             \hspace{-25pt}\includegraphics[width=.9\textwidth]{output_37_0}
@@ -741,16 +759,17 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
         \end{figure}
     \end{minipage}
 \end{center}
-    
-\qquad 可以明显地看到, 标准化残差的正态性并不是十分的好, 因此模型还需进一步的调整.
+
+\qquad 为了进一步的改进模型, 使用残差的相关图像对模型进行了可视化. 结果如图 \ref{fig:13} \ref{fig:14}. 可以明显地看到, 标准化残差的正态性并不是十分的好, 因此模型还需进一步的调整.
 
 \subsection{新息分布更换}
 \qquad 改进的模型与上一个模型基本相同, 但是考虑了不同的新息分布. 采用了t分布作为新的新息分布. 模型如下
-\textcolor{red}{
-\begin{equation*}\begin{aligned}
-    Y_{t}^{*} &=-0.0395 Y_{t-1}^{*}-0.0047 Y_{t-2}^{*}-0.0035 Y_{t-3}^{*}+a_{t}, \quad a_{t}=\sigma_{t} \varepsilon_{t}, \quad \varepsilon_{t} \sim N(0,1) \\
-    \sigma_{t}^{2} &=0.0739+ 0.1349 a_{t-1}^{2}+0.8516 \sigma_{t-1}^{2}
-\end{aligned}\end{equation*}}
+\[
+    \begin{aligned}
+        Y_{t}^*=&0.6077 Y_{t-1}^*-0.7878 Y_{t-2}^*+0.6312 Y_{t-3}^*+\varepsilon_{t}-0.6460\varepsilon_{t-1}+ 0.8145\varepsilon_{t-2}\\&-0.6673\varepsilon_{t-3}+0.0638\varepsilon_{t-4}+ 0.0076\varepsilon_{t-5}+a_{t},\\&a_{t}=\sigma_{t} \varepsilon_{t},\ 
+        \sigma_{t}^{2} =0.0783+ 0.1403 a_{t-1}^{2}+ 0.8464 \sigma_{t-1}^{2}.
+    \end{aligned}
+\]
 
 \qquad 从结果可以看到, 依旧只有$ARMA$的第一个系数比较显著, 同时, 对新息的假设也通过了$L-B$检验. 同样的, 我们对于残差的分布进行可视化. 如图 \ref{fig:15} \ref{fig:16}.
 
@@ -775,11 +794,11 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 
 \subsection{缩减$ARMA$的系数个数}
 \qquad 由于前两次的模型除了$MA$的第五个系数并不显著性. 因此, 考虑将模型更换到$ARMA(3,4)+GARCH(1,1)$. 并且采用偏t分布作为新息分布. 拟合的模型如下
-\textcolor{red}{
-\begin{equation*}\begin{aligned}
-    Y_{t}^{*} &=-0.0631 Y_{t-1}^{*}+a_{t}, \quad a_{t}=\sigma_{t} \varepsilon_{t}, \quad \varepsilon_{t} \sim N(0,1) \\
-    \sigma_{t}^{2} &=0.0729+ 0.1329 a_{t-1}^{2}+ 0.8554 \sigma_{t-1}^{2}
-\end{aligned}\end{equation*}}
+\[
+    \begin{aligned}
+        Y_{t}^*=&-Y_{t-1}^*-Y_{t-2}^*-0.6584Y_{t-3}^*+\varepsilon_{t}+0.9371\varepsilon_{t-1}+ 0.8901\varepsilon_{t-2}\\&+ 0.5417\varepsilon_{t-3}-0.1109\varepsilon_{t-4}+a_{t},\\&a_{t}=\sigma_{t} \varepsilon_{t},\ \sigma_{t}^{2} =0.0726+  0.1316 a_{t-1}^{2}+ 0.8580 \sigma_{t-1}^{2}.
+    \end{aligned}
+\]
 
 \qquad 在这个模型中, $ARMA$的七个系数的显著性全部十分的高. 残差的分布可视化如图 \ref{fig:17} \ref{fig:18}.
 \begin{center}
@@ -803,16 +822,23 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 
 \qquad 接下来, 对超前两步的数值进行预测, 结果如下
 
-\begin{center}
-    \begin{tabular}{ccccc}
- meanForecast & meanError & standardDeviation & lowerInterval & upperInterval\\
-\hline
--2.932209 & 12.40724 & 12.40724  & -29.91137 & 19.32762\\                       
-1.069844 & 12.36999 & 12.34532 & -25.82832 & 23.26285\\
-\end{tabular}
-\end{center}
+\begin{table}[htbp]
+    \centering
+    \label{tab:my-table5}
+    \begin{tabular}{cc}
+    \hline
+    预测区间                 & 真实值   \\ \hline
+    (-29.91137,19.32762) & 14.41 \\
+    (-25.82832,23.26285) & 7.78  \\ \hline
+    \end{tabular}
+\end{table}
 
-\qquad 可以看到, 模型预测的$95\%$置信区间基本上处于调整后差分序列两个极值附近. 因为采用的是偏t分布, 所以区间并未呈现对称性. 反而是差分为正的置信区间更短, 意味着估计的确定性更高, 也就意味着我们对于未来的市场应该保持一个比较积极乐观的态度. 
+\qquad 从图 \ref{fig:f3} 中可以看到, 模型预测的$95\%$置信区间基本上处于调整后差分序列两个极值附近. 因为采用的是偏t分布, 所以区间并未呈现对称性. 反而是差分为正的置信区间更短, 意味着估计的确定性更高, 也就意味着我们对于未来的市场应该保持一个比较积极乐观的态度. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{f3}
+    \caption{预测结果. \label{fig:f3}}
+\end{figure}
 \section{指数模型}
 \qquad 指数模型是用来预测时序未来值时最常用的一种模型. 经过观察可以发现$2008\sim2019$年的S\&P$500$指数整体呈上升趋势, 因此可以使用指数模型对其进行拟合. 
 
@@ -821,7 +847,7 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 \qquad R中的ets()函数有自动选取对原始数据拟合优度最高的模型的功能, 因此, 我们使用拟合优度最高的方式, 获得如图 \ref{fig:20} 所示的结果.
 \begin{figure}
     \centering
-    \hspace{-30pt}\includegraphics[width=.8\textwidth]{output_60_0}
+    \hspace{-30pt}\includegraphics[width=1\textwidth]{output_60_0}
     \caption{指数模型的结果.\label{fig:20}}
 \end{figure}
 \qquad 由于ets()的预测frequency的最大选择为24, 所以原数据直接采用了每月的S\&P500指数. 可以看到, 最终结果为$ETS(M,N,N), \alpha=0.99$, 即代表了单指数相乘模型. 而$\alpha$参数控制权重下降的速度, $\alpha$越接近1, 近期观测值的权重越大; 反之, 越接近于0, 则历史观测值的权重越大. 也就是
@@ -830,7 +856,7 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 \qquad 单指数平滑根据现有的时序值的加权平均对未来做短期预测, 图 \ref{fig:21} 给出了其折线图和以下八个季度的预测. 
 \begin{figure}
     \centering
-    \hspace{-30pt}\includegraphics[width=.8\textwidth]{output_62_0}
+    \hspace{-30pt}\includegraphics[width=.95\textwidth]{output_62_0}
     \caption{\footnotesize 可乘的单指数光滑预测, 其中预测值由虚线表示, $80\%$和$95\%$置信区间分别由淡灰色和深灰色表示.\label{fig:21}}
 \end{figure}
 
@@ -899,9 +925,10 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 \bibliographystyle{unsrt}
 \bibliography{wpref}
 \addcontentsline{toc}{section}{7\ \ \,参考文献}
+\newpage
 \appendix
 \section{完整代码}
-\tiny
+\footnotesize
 \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{1}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -939,13 +966,11 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 \end{Verbatim}
 \end{tcolorbox}
     \begin{verbatim}
-
 	Augmented Dickey-Fuller Test
 
 data:  dPricets
 Dickey-Fuller = -14.196, Lag order = 14, p-value = 0.01
 alternative hypothesis: stationary
-
     \end{verbatim}
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{4}{\boxspacing}
@@ -1004,7 +1029,6 @@ data:  Residuals from ARIMA(3,1,5)(1,0,0)[5]
 Q* = 36.489, df = 3, p-value = 5.902e-08
 
 Model df: 9.   Total lags used: 12
-
     \end{Verbatim}
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{6}{\boxspacing}
@@ -1034,14 +1058,12 @@ Training set error measures:
 Training set 0.03473708 2.190042 1.339692 NaN  Inf 0.6734637 -0.1135568
     \end{Verbatim}
     \begin{Verbatim}[commandchars=\\\{\}]
-
         Ljung-Box test
 
 data:  Residuals from ARIMA(0,0,0)(3,0,0)[5] with zero mean
 Q* = 85.257, df = 7, p-value = 1.11e-15
 
 Model df: 3.   Total lags used: 10
-
     \end{Verbatim}
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{7}{\boxspacing}
@@ -1065,7 +1087,6 @@ Model df: 3.   Total lags used: 10
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-
 Title:
  GARCH Modelling
 
@@ -1124,7 +1145,6 @@ Standardised Residuals Tests:
 Information Criterion Statistics:
      AIC      BIC      SIC     HQIC
 3.768652 3.790280 3.768627 3.776423
-
     \end{Verbatim}
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{9}{\boxspacing}
@@ -1139,7 +1159,6 @@ Information Criterion Statistics:
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-
 Title:
  GARCH Modelling
 
@@ -1199,7 +1218,6 @@ Standardised Residuals Tests:
 Information Criterion Statistics:
      AIC      BIC      SIC     HQIC
 3.715021 3.738614 3.714990 3.723498
-
     \end{Verbatim}
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{10}{\boxspacing}
@@ -1215,7 +1233,6 @@ Information Criterion Statistics:
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-
 Title:
  GARCH Modelling
 
@@ -1275,7 +1292,6 @@ Standardised Residuals Tests:
 Information Criterion Statistics:
      AIC      BIC      SIC     HQIC
 3.697923 3.721516 3.697892 3.706400
-
     \end{Verbatim}
 \begin{tabular}{ccccc}
  meanForecast & meanError & standardDeviation & lowerInterval & upperInterval\\
