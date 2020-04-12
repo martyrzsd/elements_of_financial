@@ -393,9 +393,9 @@
 
 
 
+    \title{金融统计基础课程报告}
 
-
-
+    \author{第一版}
 
 
 
@@ -433,6 +433,7 @@
 \begin{document}
 % \includepdf[width=\paperwidth]{FM.pdf}
 % \newpage
+\maketitle
 \tableofcontents
 
 
@@ -519,7 +520,7 @@
         \end{figure}
     \end{minipage}
 \end{center}
-\qquad 可以看出, 两个图像都存在拖尾现象, $p=4,q=4$是一组可能的解, 但无法确定确切的最优的 (p,q) 的值, $ACF$和$PACF$为识别纯$AR(p)$和$MA(q)$模型提供了有效的工具. 但对于混合$ARMA$模型来说, 它的理论$ACF$和$PACF$有着无限多的非零值, 这使得根据样本$ACF$和$PACF$来识别混合模型非常困难. 于是我们通过更适合大样本的$EACF$来进一步确定.
+\qquad 可以看出, 两个图像都存在拖尾现象, $p=4,q=4$是一组可能的解, 但无法确定确切的最优的 (p,q) 的值, $ACF$和$PACF$为识别纯$AR(p)$和$MA(q)$模型提供了有效的工具. 但对于混合$ARMA$模型来说, 它的理论$ACF$和$PACF$有着无限多的非零值, 这使得根据样本$ACF$和$PACF$来识别混合模型非常困难. 于是我们通过$EACF$来进一步确定.
 \begin{longtable}[c]{c|cccccccccccccc}
     \caption{EACF结果}
     \label{tab:my-table}\\
@@ -928,7 +929,7 @@ $p$值接近0, 因此, 残差的正态性相当好, 但通过残差的$ACF$图�
 \newpage
 \appendix
 \section{完整代码}
-\footnotesize
+\small
 \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{1}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
